@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sample", "sample\sample.vcxproj", "{4A85A3BF-68DE-48B9-BE7A-3FFA915F712E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E5C298C-1D60-47A9-AACC-C16426876B2B} = {5E5C298C-1D60-47A9-AACC-C16426876B2B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib", "..\lib\project\lib.vcxproj", "{5E5C298C-1D60-47A9-AACC-C16426876B2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A85A3BF-68DE-48B9-BE7A-3FFA915F712E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4A85A3BF-68DE-48B9-BE7A-3FFA915F712E}.Debug|Win32.Build.0 = Debug|Win32
+		{4A85A3BF-68DE-48B9-BE7A-3FFA915F712E}.Release|Win32.ActiveCfg = Release|Win32
+		{4A85A3BF-68DE-48B9-BE7A-3FFA915F712E}.Release|Win32.Build.0 = Release|Win32
+		{5E5C298C-1D60-47A9-AACC-C16426876B2B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5E5C298C-1D60-47A9-AACC-C16426876B2B}.Debug|Win32.Build.0 = Debug|Win32
+		{5E5C298C-1D60-47A9-AACC-C16426876B2B}.Release|Win32.ActiveCfg = Release|Win32
+		{5E5C298C-1D60-47A9-AACC-C16426876B2B}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
