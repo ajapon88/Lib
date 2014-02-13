@@ -1,5 +1,5 @@
-#ifndef __COLOR_H__
-#define __COLOR_H__
+#ifndef __LIB_COLOR_H__
+#define __LIB_COLOR_H__
 #include "stdafx.h"
 
 namespace lib {
@@ -50,4 +50,4 @@ private:
 	uint8_t m_a;
 };
 }	// namespace lib
-#endif // __COLOR_H__
+#endif // __LIB_COLOR_H__

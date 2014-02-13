@@ -1,3 +1,5 @@
+#ifndef __LIB_UTILITY_H__
+#define __LIB_UTILITY_H__
 #include "stdafx.h"
 
 namespace lib {
@@ -15,3 +17,5 @@ int str2Oct(const char *str);
 int str2Hex(const char *str);
 }
 }
+
+#endif	// __LIB_UTILITY_H__

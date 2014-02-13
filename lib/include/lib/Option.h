@@ -1,6 +1,6 @@
 // オプションパーサ
-#ifndef __OPTION_H__
-#define __OPTION_H__
+#ifndef __LIB_OPTION_H__
+#define __LIB_OPTION_H__
 #include "stdafx.h"
 
 namespace lib {
@@ -68,4 +68,4 @@ public:
 }	// namespace lib
 
 
-#endif // __OPTION_H__
+#endif // __LIB_OPTION_H__
