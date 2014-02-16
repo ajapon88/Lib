@@ -106,17 +106,17 @@ bool isHex(const char *str) {
 	return true;
 }
 
-int str2Int(const char *str)
+int a2i(const char *str)
 {
 	return atoi(str);
 }
 
-float str2Float(const char *str)
+double a2f(const char *str)
 {
 	return atof(str);
 }
 
-int str2Bin(const char *str)
+int a2b(const char *str)
 {
 	int res = 0;
 	while(*str != '\0') {
@@ -129,7 +129,7 @@ int str2Bin(const char *str)
 	return res;
 }
 
-int str2Oct(const char *str)
+int a2o(const char *str)
 {
 	int res = 0;
 	while(*str != '\0') {
@@ -142,7 +142,7 @@ int str2Oct(const char *str)
 	return res;
 }
 
-int str2Hex(const char *str)
+int a2h(const char *str)
 {
 	int res = 0;
 	if (strlen(str) < 3) {

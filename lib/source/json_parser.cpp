@@ -1,0 +1,325 @@
+#include "stdafx.h"
+#include <lib/json_parser.h>
+#include <lib/utility.h>
+
+namespace {
+const char *skipSpace(const char *data) {
+	while (*data == ' ' || *data == '\t' || *data == '\n')  data++;
+	return data;
+}
+}
+
+namespace lib {
+
+const char *JsonElement::copyValue(std::string *dst, const char *data) {
+	*dst = "";
+	while (*data != ' ' && *data != '\t' && *data != '\n' && *data != ',' && *data != '\0' && *data != '}' && *data != ']') {
+		*dst += *data;
+		data++;
+	}
+	return data;
+}
+
+const char *JsonElement::copyString(std::string *dst, const char *data) {
+	*dst = "";
+	if (*data != '"') {
+		// エラー
+		setParseError();
+		return data;
+	}
+	data++;
+	while (*data != '\0' && *data != '"') {
+		if (*data == '\\') {
+			// エスケープ
+			data++;
+			if (*data == '\0') {
+				// エラー
+				setParseError();
+				return data;
+			}
+			switch (*data) {
+			case 't':
+				*dst += '\t';
+				break;
+			case 'n':
+				*dst += '\n';
+				break;
+			case '"':
+				*dst += '"';
+				break;
+			case '\'':
+				*dst += '\'';
+				break;
+			default:
+				// エスケープが見つからなかった
+				*dst += '\\';
+				*dst += *data;
+			}
+		} else {
+			*dst += *data;
+		}
+		data++;
+	}
+	if (*data != '"') {
+		// エラー
+		setParseError();
+		return data;
+	}
+	data++;
+
+	return data;
+}
+
+const char *JsonElement::create(JsonElement **element, const char *data)
+{
+	const char *p = skipSpace(data);
+	*element = NULL;
+	if (*p == '{') {
+		JsonObject *json_object = new JsonObject();
+		p = json_object->parse(p);
+		*element = json_object;
+	} else if (*p == '[') {
+		JsonArray *json_array= new JsonArray();
+		p = json_array->parse(p);
+		*element = json_array;
+	} else if (*p == '"') {
+		JsonString *json_string = new JsonString();
+		std::string dst;
+		p = copyString(&dst, p);
+		if (isParseError()) {
+			return data;
+		}
+		json_string->setValue(dst.c_str());
+		*element = json_string;
+	} else {
+		std::string dst;
+		p = copyValue(&dst, p);
+		if (dst.compare("null") == 0) {
+			JsonNull *json_null = new JsonNull();
+			*element = json_null;
+		} else if (dst.compare("true") == 0) {
+			JsonBool *json_bool = new JsonBool(true);
+			*element = json_bool;
+		} else if (dst.compare("false") == 0) {
+			JsonBool *json_bool = new JsonBool(false);
+			*element = json_bool;
+		} else if (utility::isInt(dst.c_str())){
+			JsonInt *json_int = new JsonInt();
+			json_int->setValue(utility::a2i(dst.c_str()));
+			*element = json_int;
+		} else if (utility::isFloat(dst.c_str())){
+			JsonDouble *json_double = new JsonDouble();
+			json_double->setValue(utility::a2f(dst.c_str()));
+			*element = json_double;
+		} else {
+			setParseError();
+			return data;
+		}
+	}
+
+	if (isParseError()) {
+		return data;
+	}
+
+	return p;
+}
+
+const char *JsonElement::getString()
+{
+	if (isString()) {
+		JsonString *obj = (JsonString*)this;
+		return obj->getValue();
+	}
+	return "";
+}
+
+long long JsonElement::getInt()
+{
+	if (isInt()) {
+		JsonInt *obj = (JsonInt*)this;
+		return obj->getValue();
+	}
+	return 0;
+}
+
+long double JsonElement::getDouble()
+{
+	if (isDouble()) {
+		JsonDouble *obj = (JsonDouble*)this;
+		return obj->getValue();
+	}
+	return 0.f;
+}
+
+bool JsonElement::getBool()
+{
+	if (isBool()) {
+		JsonBool *obj = (JsonBool*)this;
+		return obj->getValue();
+	}
+	return false;
+}
+
+JsonArray *JsonElement::getArray()
+{
+	if (isArray()) {
+		JsonArray *obj = (JsonArray*)this;
+		return obj;
+	}
+	return NULL;
+}
+
+JsonObject *JsonElement::getObject()
+{
+	if (isObject()) {
+		JsonObject *obj = (JsonObject*)this;
+		return obj;
+	}
+	return NULL;
+}
+
+void JsonArray::dump(std::string *out)
+{
+	*out += '[';
+	for (ElementList::iterator it = element_list_.begin(); it != element_list_.end(); ++it) {
+		if (it != element_list_.begin())  *out += ',';
+		(*it)->dump(out);
+	}
+	*out += ']';
+}
+
+const char *JsonArray::parse(const char *data)
+{
+	const char *p = skipSpace(data);
+	if (*p != '[') {
+		// エラー
+		setParseError();
+		return p;
+	}
+	p++;
+	p = skipSpace(p);
+	if (*p == ']') {
+		p++;
+		return p;
+	}
+	while (true) {
+		JsonElement *element = NULL;
+		const char *_p = skipSpace(p);
+		p = create(&element, _p);
+		if (isParseError()) {
+			return _p;
+		}
+		addElement(element);
+		p = skipSpace(p);
+		if (*p == ']') {
+			p++;
+			break;
+		}
+		if (*p != ',') {
+			setParseError();
+			return _p;
+		}
+		p++;
+	}
+
+	return p;
+}
+
+void JsonObject::dump(std::string *out)
+{
+	*out += '{';
+	for (ElementList::iterator it = element_list_.begin(); it != element_list_.end(); ++it) {
+		if (it != element_list_.begin())  *out += ',';
+		*out += "\"" + it->first + "\":";
+		it->second->dump(out);
+	}
+	*out += '}';
+}
+
+const char *JsonObject::parse(const char *data)
+{
+	const char *p = skipSpace(data);
+	if (*p != '{') {
+		// エラー
+		setParseError();
+		return p;
+	}
+	p++;
+	p = skipSpace(p);
+	if (*p == '}') {
+		p++;
+		return p;
+	}
+	while (true) {
+		std::string name;
+		JsonElement *element = NULL;
+		const char *_p = skipSpace(p);
+		p = copyString(&name, _p);
+		if (isParseError()) {
+			return _p;
+		}
+		p = skipSpace(p);
+		if (*p != ':') {
+			setParseError();
+			return _p;
+		}
+		p++;
+		p = create(&element, p);
+		if (isParseError()) {
+			return _p;
+		}
+		addElement(name.c_str(), element);
+		p = skipSpace(p);
+		if (*p == '}') {
+			break;
+		}
+		if (*p != ',') {
+			setParseError();
+			return _p;
+		}
+		p++;
+	}
+	p++;
+
+	return p;
+}
+
+const char *JsonReader::dump(std::string *out)
+{
+	*out = "";
+	if (root_element_) {
+		root_element_->dump(out);
+	}
+	return out->c_str();
+}
+
+
+void JsonReader::parse(const char *data)
+{
+	parse_error_ = false;
+	last_parse_pos_ = NULL;
+	SAFE_DELETE(root_element_);
+	while (*data == ' ' || *data == '\t' || *data == '\n')  data++;
+	if (*data == '{') {
+		JsonObject *json_object = new JsonObject();
+		last_parse_pos_ = json_object->parse(data);
+		root_element_ = json_object;
+	} else if (*data == '[') {
+		JsonArray*json_array = new JsonArray();
+		last_parse_pos_ = json_array->parse(data);
+		root_element_ = json_array;
+	} else {
+		parse_error_ = true;
+	}
+	if (last_parse_pos_ && !isParseError()) {
+		last_parse_pos_ = skipSpace(last_parse_pos_);
+		if (*last_parse_pos_ != '\0') {
+			parse_error_ = true;
+		}
+	}
+	if (root_element_ && root_element_->isParseError()) {
+		parse_error_ = true;
+	}
+}
+
+}

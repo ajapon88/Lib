@@ -1,7 +1,20 @@
 #include <stdio.h>
 #include <lib/utility.h>
+#include <lib/json_parser.h>
+
+void testUtility();
+void testJson();
 
 int main()
+{
+	testUtility();
+	testJson();
+	getchar();
+	return 0;
+}
+
+
+void testUtility()
 {
 	const char *str[] = {
 		"1234567890",
@@ -18,23 +31,40 @@ int main()
 		const char *p = str[i];
 		printf ("%sは\n", p);
 		if (lib::utility::isInt(p)) {
-			printf("  整数:%d\n", lib::utility::str2Int(p));
+			printf("  整数:%d\n", lib::utility::a2i(p));
 		}
 		if (lib::utility::isFloat(p)) {
-			printf("  実数:%f\n", lib::utility::str2Float(p));
+			printf("  実数:%f\n", lib::utility::a2f(p));
 		}
 		if (lib::utility::isBin(p)) {
-			printf("  2進数:%d\n", lib::utility::str2Bin(p));
+			printf("  2進数:%d\n", lib::utility::a2b(p));
 		}
 		if (lib::utility::isOct(p)) {
-			printf("  8進数:%d\n", lib::utility::str2Oct(p));
+			printf("  8進数:%d\n", lib::utility::a2o(p));
 		}
 		if (lib::utility::isHex(p)) {
-			printf("  16進数:%d\n", lib::utility::str2Hex(p));
+			printf("  16進数:%d\n", lib::utility::a2h(p));
 		}
 		printf("\n");
 	}
+}
 
-	getchar();
-	return 0;
+void testJson()
+{
+	// Json
+	static const char *json[] = {
+		"{{{{{{}}}}}}",
+		"[[[[[[]]]]]]",
+		"{\"a\":[\"1\",12345,0.1e10],\"b\":\"B\"}",
+	};
+	lib::JsonReader json_reader;
+	for(int i = 0; i < ARRAY_SIZE(json); i++) {
+		json_reader.parse(json[i]);
+		if (json_reader.isParseError()) {
+			printf("パースエラー: %s\n", json_reader.getLastParsePos());
+		} else {
+			std::string out;
+			printf("パース成功: %s\n", json_reader.dump(&out));
+		}
+	}
 }
