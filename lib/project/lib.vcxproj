@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\file.cpp" />
     <ClCompile Include="..\source\json_parser.cpp" />
     <ClCompile Include="..\source\Option.cpp" />
     <ClCompile Include="..\source\stdafx.cpp">
@@ -21,6 +22,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\lib\Color.h" />
     <ClInclude Include="..\include\lib\define.h" />
+    <ClInclude Include="..\include\lib\file.h" />
     <ClInclude Include="..\include\lib\json_parser.h" />
     <ClInclude Include="..\include\lib\Option.h" />
     <ClInclude Include="..\include\lib\utility.h" />

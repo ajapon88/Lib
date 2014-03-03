@@ -9,4 +9,6 @@
 #include <map>
 #include <fstream>
 
+#include <windows.h>
+
 #include <lib/define.h>

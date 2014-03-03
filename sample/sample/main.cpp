@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <lib/utility.h>
 #include <lib/json_parser.h>
+#include <lib/file.h>
 
 void testUtility();
 void testJson();
@@ -52,19 +53,20 @@ void testUtility()
 void testJson()
 {
 	// Json
-	static const char *json[] = {
-		"{{{{{{}}}}}}",
-		"[[[[[[]]]]]]",
-		"{\"a\":[\"1\",12345,0.1e10],\"b\":\"B\"}",
-	};
-	lib::JsonReader json_reader;
-	for(int i = 0; i < ARRAY_SIZE(json); i++) {
-		json_reader.parse(json[i]);
+	lib::file::FileList filelist;
+	lib::file::getFileList(&filelist, "../", "json", true);
+	
+	for (lib::file::FileList::iterator it = filelist.begin(); it != filelist.end(); ++it) {
+		const char *filename = it->c_str();
+		lib::file::FileData file(filename);
+
+		lib::JsonReader json_reader;
+		json_reader.parse(file.getData());
 		if (json_reader.isParseError()) {
-			printf("パースエラー: %s\n", json_reader.getLastParsePos());
+			printf("パースエラー(%s): %d行目,'%s'付近\n", file.getFileName(), json_reader.getErrorLineNo(), json_reader.getLastParsePos());
 		} else {
 			std::string out;
-			printf("パース成功: %s\n", json_reader.dump(&out));
+			printf("パース成功(%s): %s\n", file.getFileName(), json_reader.dump(&out));
 		}
 	}
 }
