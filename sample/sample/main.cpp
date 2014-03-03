@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include <lib/utility.h>
-#include <lib/json_parser.h>
-#include <lib/file.h>
+#include <lib/utility/utility.h>
+#include <lib/format/json.h>
+#include <lib/file/file.h>
 
 void testUtility();
 void testJson();
@@ -28,7 +28,7 @@ void testUtility()
 		"123.0e5",
 		"-123.0e-5",
 	};
-	for (int i = 0; i < sizeof(str)/sizeof(str[0]); i++) {
+	for (int i = 0; i < ARRAY_SIZE(str); i++) {
 		const char *p = str[i];
 		printf ("%sは\n", p);
 		if (lib::utility::isInt(p)) {
@@ -60,7 +60,7 @@ void testJson()
 	while(filelist.nextFile()) {
 		lib::file::FileData file(filelist.getFileName());
 
-		lib::JsonReader json_reader;
+		lib::format::JsonReader json_reader;
 		json_reader.parse(file.getData());
 		if (json_reader.isParseError()) {
 			printf("パースエラー(%s): %d行目,'%s'付近\n", file.getFileName(), json_reader.getErrorLineNo(), json_reader.getLastParsePos());

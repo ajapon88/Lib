@@ -13,28 +13,43 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\file">
+      <UniqueIdentifier>{ba759cb9-d90a-4d74-bebd-6c1c3cf43614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\file">
+      <UniqueIdentifier>{5de660d4-39be-41d3-9464-dd9eea09aebd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\utility">
+      <UniqueIdentifier>{366f828e-1f81-4839-b5e9-91ee39f2e41b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\utility">
+      <UniqueIdentifier>{35884c15-d909-41f6-b418-b0a011caabc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\format">
+      <UniqueIdentifier>{d0b96b43-1e9a-4f04-a66b-a5938c390eac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\format">
+      <UniqueIdentifier>{71987ccb-9ad6-499b-87e2-7c0ad147f785}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\stdafx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\utility.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="..\source\utility\Option.cpp">
+      <Filter>ソース ファイル\utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Option.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="..\source\utility\utility.cpp">
+      <Filter>ソース ファイル\utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\json_parser.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="..\source\format\json.cpp">
+      <Filter>ソース ファイル\format</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\file.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="..\source\file\file.cpp">
+      <Filter>ソース ファイル\file</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\lib\utility.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\stdafx.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -44,14 +59,17 @@
     <ClInclude Include="..\include\lib\define.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\lib\Option.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="..\include\lib\utility\Option.h">
+      <Filter>ヘッダー ファイル\utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\lib\json_parser.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="..\include\lib\utility\utility.h">
+      <Filter>ヘッダー ファイル\utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\lib\file.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="..\include\lib\format\json.h">
+      <Filter>ヘッダー ファイル\format</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\lib\file\file.h">
+      <Filter>ヘッダー ファイル\file</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,10 +1,11 @@
-#ifndef __LIB_JSON_PARSER_H__
-#define __LIB_JSON_PARSER_H__
+#ifndef __LIB_FORMAT_JSON_H__
+#define __LIB_FORMAT_JSON_H__
 #include "stdafx.h"
 
 #define ENABLE_JSON_COMMENT	// コメント許可
 
 namespace lib {
+namespace format {
 	
 class JsonNull;
 class JsonString;
@@ -263,6 +264,6 @@ private:
 	int error_line_no_;
 };
 
-
-}
+} // namespace format
+} // namespace lib
 #endif	// __LIB_JSON_PARSER_H__

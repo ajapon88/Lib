@@ -1,9 +1,10 @@
 // オプションパーサ
-#ifndef __LIB_OPTION_H__
-#define __LIB_OPTION_H__
+#ifndef __LIB_UTILITY_OPTION_H__
+#define __LIB_UTILITY_OPTION_H__
 #include "stdafx.h"
 
 namespace lib {
+namespace utility {
 class Option
 {
 public:
@@ -65,6 +66,8 @@ public:
 	int GetOptionByIndex(int option_index, std::string *name, std::string *arg);
 	void ResetOptionIndex() { m_arg_index = 0; }
 };
+
+}	// namespace utility
 }	// namespace lib
 
 

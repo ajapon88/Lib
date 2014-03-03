@@ -1,7 +1,8 @@
 #include "stdafx.h"
-#include <lib/Option.h>
+#include <lib/utility/Option.h>
 
 namespace lib {
+namespace utility {
 Option::Option(void)
 : m_argc(0)
 , m_arg_index(0)
@@ -256,4 +257,5 @@ int Option::GetOptionByIndex(int option_index, std::string *name, std::string *a
 	return OPTION_INDEX_INVALID;
 }
 
+}	// namespace utility
 }	// namespace lib

@@ -11,21 +11,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\file.cpp" />
-    <ClCompile Include="..\source\json_parser.cpp" />
-    <ClCompile Include="..\source\Option.cpp" />
+    <ClCompile Include="..\source\file\file.cpp" />
+    <ClCompile Include="..\source\format\json.cpp" />
     <ClCompile Include="..\source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\source\utility.cpp" />
+    <ClCompile Include="..\source\utility\Option.cpp" />
+    <ClCompile Include="..\source\utility\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\lib\Color.h" />
     <ClInclude Include="..\include\lib\define.h" />
-    <ClInclude Include="..\include\lib\file.h" />
-    <ClInclude Include="..\include\lib\json_parser.h" />
-    <ClInclude Include="..\include\lib\Option.h" />
-    <ClInclude Include="..\include\lib\utility.h" />
+    <ClInclude Include="..\include\lib\file\file.h" />
+    <ClInclude Include="..\include\lib\format\json.h" />
+    <ClInclude Include="..\include\lib\utility\Option.h" />
+    <ClInclude Include="..\include\lib\utility\utility.h" />
     <ClInclude Include="..\include\stdafx.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

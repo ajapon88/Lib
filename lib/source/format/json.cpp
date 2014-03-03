@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include <lib/json_parser.h>
-#include <lib/utility.h>
+#include <lib/format/json.h>
+#include <lib/utility/utility.h>
 
 namespace {
 const char *skipSpace(const char *data) {
@@ -28,6 +28,7 @@ const char *skipSpace(const char *data) {
 }
 
 namespace lib {
+namespace format {
 
 const char *JsonElement::copyValue(std::string *dst, const char *data) {
 	*dst = "";
@@ -362,4 +363,5 @@ void JsonReader::parse(const char *data)
 	}
 }
 
-}
+} // namespace format
+} // namespace lib
