@@ -4,10 +4,26 @@
 
 namespace lib {
 namespace file {
-typedef std::vector<std::string> FileList;
+class FileList;
+class FileData;
+
 void getFileList(FileList *filelist, const char *dir, const char *ext="*.*", bool recursive=true);
 void getPathFilename(std::string *filename, const std::string &filepath);
 void getFileExtention(std::string *ext, const std::string &filepath);
+
+class FileList {
+public:
+	FileList();
+	~FileList();
+	void clear();
+	void addFile(const char *filename);
+	void reset();
+	bool nextFile();
+	const char *getFileName();
+private:
+	int m_file_index;
+	std::vector<std::string> m_file_list;
+};
 
 class FileData {
 public:

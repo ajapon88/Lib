@@ -56,9 +56,9 @@ void testJson()
 	lib::file::FileList filelist;
 	lib::file::getFileList(&filelist, "../", "json", true);
 	
-	for (lib::file::FileList::iterator it = filelist.begin(); it != filelist.end(); ++it) {
-		const char *filename = it->c_str();
-		lib::file::FileData file(filename);
+	filelist.reset();
+	while(filelist.nextFile()) {
+		lib::file::FileData file(filelist.getFileName());
 
 		lib::JsonReader json_reader;
 		json_reader.parse(file.getData());

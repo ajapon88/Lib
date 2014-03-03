@@ -30,12 +30,12 @@ void getFileList(FileList *filelist, const char *dir, const char *ext, bool recu
 			}
 		} else {
 			if (!ext || strcmp(ext, "*") == 0) {
-				filelist->push_back(filepath);
+				filelist->addFile(filepath.c_str());
 			} else {
 				std::string filext;
 				getFileExtention(&filext, filepath);
 				if (filext.compare(ext) == 0) {
-					filelist->push_back(filepath);
+					filelist->addFile(filepath.c_str());
 				}
 			}
 		}
@@ -64,6 +64,42 @@ void getFileExtention(std::string *ext, const std::string &filepath)
 	}
 }
 
+FileList::FileList()
+: m_file_index(-1)
+{
+}
+FileList::~FileList()
+{
+}
+void FileList::clear()
+{
+	m_file_index = -1;
+	m_file_list.clear();
+}
+void FileList::addFile(const char *filename)
+{
+	std::string str = filename;
+	m_file_list.push_back(str);
+}
+void FileList::reset()
+{
+	m_file_index = -1;
+}
+bool FileList::nextFile()
+{
+	m_file_index++;
+	if (0 <= m_file_index && m_file_index < static_cast<int>(m_file_list.size())) {
+		return true;
+	}
+	return false;
+}
+const char *FileList::getFileName()
+{
+	if (0 <= m_file_index && m_file_index < static_cast<int>(m_file_list.size())) {
+		return m_file_list[m_file_index].c_str();
+	}
+	return NULL;
+}
 
 FileData::FileData(const char *filename)
 : m_data(NULL)
