@@ -4,7 +4,25 @@
 
 namespace {
 const char *skipSpace(const char *data) {
-	while (*data == ' ' || *data == '\t' || *data == '\n')  data++;
+	while (*data == ' ' || *data == '\t' || *data == '\r' || *data == '\n')  data++;
+#ifdef	ENABLE_JSON_COMMENT
+	while(*data == '/' && (*(data+1) == '*' || *(data+1) == '/')) {
+		data++;
+		if (*data == '/') {
+			while(*data != '\n' && *data != '\0')  data++;
+		} else {
+			*data++;
+			while(*data != '\0') {
+				if (*data == '*' && *(data+1) == '/') {
+					data += 2;
+					break;
+				}
+				data++;
+			}
+		}
+		while (*data == ' ' || *data == '\t' || *data == '\r' || *data == '\n')  data++;
+	}
+#endif
 	return data;
 }
 }
@@ -13,7 +31,12 @@ namespace lib {
 
 const char *JsonElement::copyValue(std::string *dst, const char *data) {
 	*dst = "";
-	while (*data != ' ' && *data != '\t' && *data != '\n' && *data != ',' && *data != '\0' && *data != '}' && *data != ']') {
+	while (*data != ' ' && *data != '\t' && *data != '\r' && *data != '\n' && *data != ',' && *data != '\0' && *data != '}' && *data != ']') {
+#ifdef ENABLE_JSON_COMMENT
+		if (*data == '/' && (*(data+1) == '*' || *(data+1) == '/')) {
+			break;
+		}
+#endif
 		*dst += *data;
 		data++;
 	}
@@ -40,6 +63,9 @@ const char *JsonElement::copyString(std::string *dst, const char *data) {
 			switch (*data) {
 			case 't':
 				*dst += '\t';
+				break;
+			case 'r':
+				*dst += '\r';
 				break;
 			case 'n':
 				*dst += '\n';
@@ -298,15 +324,20 @@ void JsonReader::parse(const char *data)
 {
 	parse_error_ = false;
 	last_parse_pos_ = NULL;
+	error_line_no_ = -1;
 	SAFE_DELETE(root_element_);
-	while (*data == ' ' || *data == '\t' || *data == '\n')  data++;
-	if (*data == '{') {
+	if (!data) {
+		parse_error_ = true;
+		return;
+	}
+	const char *p = skipSpace(data);
+	if (*p == '{') {
 		JsonObject *json_object = new JsonObject();
-		last_parse_pos_ = json_object->parse(data);
+		last_parse_pos_ = json_object->parse(p);
 		root_element_ = json_object;
-	} else if (*data == '[') {
+	} else if (*p == '[') {
 		JsonArray*json_array = new JsonArray();
-		last_parse_pos_ = json_array->parse(data);
+		last_parse_pos_ = json_array->parse(p);
 		root_element_ = json_array;
 	} else {
 		parse_error_ = true;
@@ -319,6 +350,15 @@ void JsonReader::parse(const char *data)
 	}
 	if (root_element_ && root_element_->isParseError()) {
 		parse_error_ = true;
+	}
+	if(parse_error_ && last_parse_pos_) {
+		// 行番号
+		p = data;
+		error_line_no_ = 1;
+		while (p < last_parse_pos_) {
+			if (*p == '\n')  error_line_no_++;
+			p++;
+		}
 	}
 }
 

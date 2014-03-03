@@ -2,6 +2,8 @@
 #define __LIB_JSON_PARSER_H__
 #include "stdafx.h"
 
+#define ENABLE_JSON_COMMENT	// コメント許可
+
 namespace lib {
 	
 class JsonNull;
@@ -29,7 +31,9 @@ public:
 
 	virtual void dump(std::string *out) = 0;
 	
-	void setParseError() { parse_error_ = true; }
+	void setParseError() {
+		parse_error_ = true;
+	}
 	void resetParseError() { parse_error_ = false; }
 	bool isParseError() { return parse_error_; }
 
@@ -177,7 +181,7 @@ public:
 		element_list_.pop_back();
 	}
 	void removeElement(int index) {
-		if (0 <= index && index < element_list_.size()) {
+		if (0 <= index && index < static_cast<int>(element_list_.size())) {
 			removeElement(element_list_[index]);
 		}
 	}
@@ -238,8 +242,8 @@ protected:
 // READER
 class JsonReader {
 public:
-	JsonReader(): root_element_(NULL), parse_error_(false), last_parse_pos_(NULL){}
-	JsonReader(const char *data): root_element_(NULL), parse_error_(false), last_parse_pos_(NULL){ parse(data); }
+	JsonReader(): root_element_(NULL), parse_error_(false), last_parse_pos_(NULL), error_line_no_(-1) {}
+	JsonReader(const char *data): root_element_(NULL), parse_error_(false), last_parse_pos_(NULL), error_line_no_(-1) { parse(data); }
 	~JsonReader() {
 		SAFE_DELETE(root_element_);
 	}
@@ -248,6 +252,7 @@ public:
 	JsonElement *getRootElement() { return root_element_; }
 	bool isParseError() { return parse_error_; }
 	const char *getLastParsePos() { return last_parse_pos_; }
+	int getErrorLineNo() { return error_line_no_; }
 	const char *dump(std::string *out);
 	void parse(const char *data);
 
@@ -255,6 +260,7 @@ private:
 	JsonElement *root_element_;
 	bool parse_error_;
 	const char *last_parse_pos_;
+	int error_line_no_;
 };
 
 
