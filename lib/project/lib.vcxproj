@@ -20,10 +20,10 @@
     <ClCompile Include="..\source\utility\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\lib\Color.h" />
     <ClInclude Include="..\include\lib\define.h" />
     <ClInclude Include="..\include\lib\file\file.h" />
     <ClInclude Include="..\include\lib\format\json.h" />
+    <ClInclude Include="..\include\lib\utility\Color.h" />
     <ClInclude Include="..\include\lib\utility\Option.h" />
     <ClInclude Include="..\include\lib\utility\utility.h" />
     <ClInclude Include="..\include\stdafx.h" />
@@ -64,6 +64,7 @@
       <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
+      <CompileAsManaged>false</CompileAsManaged>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

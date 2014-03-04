@@ -53,9 +53,6 @@
     <ClInclude Include="..\include\stdafx.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\lib\Color.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\lib\define.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -70,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="..\include\lib\file\file.h">
       <Filter>ヘッダー ファイル\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\lib\utility\Color.h">
+      <Filter>ヘッダー ファイル\utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
