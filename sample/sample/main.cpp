@@ -38,13 +38,13 @@ void testUtility()
 			printf("  実数:%f\n", lib::utility::a2f(p));
 		}
 		if (lib::utility::isBin(p)) {
-			printf("  2進数:%d\n", lib::utility::a2b(p));
+			printf("  2進数:%d\n", lib::utility::a2iBin(p));
 		}
 		if (lib::utility::isOct(p)) {
-			printf("  8進数:%d\n", lib::utility::a2o(p));
+			printf("  8進数:%d\n", lib::utility::a2iOct(p));
 		}
 		if (lib::utility::isHex(p)) {
-			printf("  16進数:%d\n", lib::utility::a2h(p));
+			printf("  16進数:%d\n", lib::utility::a2iHex(p));
 		}
 		printf("\n");
 	}

@@ -136,6 +136,7 @@ void FileData::load(const char *filename)
 		m_data = NEW_ARRAY() char[m_size+1];
 		memset(m_data, 0, sizeof(char)*(m_size+1));
 		fread(m_data, sizeof(char), m_size, fp);
+		fclose(fp);
 	}
 }
 

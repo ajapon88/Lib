@@ -51,17 +51,18 @@ const char *JsonElement::copyString(std::string *dst, const char *data) {
 		setParseError();
 		return data;
 	}
-	data++;
-	while (*data != '\0' && *data != '"') {
-		if (*data == '\\') {
+	const char *p = data;
+	p++;
+	while (*p != '\0' && *p != '"') {
+		if (*p == '\\') {
 			// エスケープ
-			data++;
-			if (*data == '\0') {
+			p++;
+			if (*p == '\0' || *p == '\n') {
 				// エラー
 				setParseError();
 				return data;
 			}
-			switch (*data) {
+			switch (*p) {
 			case 't':
 				*dst += '\t';
 				break;
@@ -77,24 +78,27 @@ const char *JsonElement::copyString(std::string *dst, const char *data) {
 			case '\'':
 				*dst += '\'';
 				break;
+			case '\\':
+				*dst += '\\';
+				break;
 			default:
 				// エスケープが見つからなかった
 				*dst += '\\';
-				*dst += *data;
+				*dst += *p;
 			}
 		} else {
-			*dst += *data;
+			*dst += *p;
 		}
-		data++;
+		p++;
 	}
-	if (*data != '"') {
+	if (*p != '"') {
 		// エラー
 		setParseError();
 		return data;
 	}
-	data++;
+	p++;
 
-	return data;
+	return p;
 }
 
 const char *JsonElement::create(JsonElement **element, const char *data)
@@ -144,8 +148,9 @@ const char *JsonElement::create(JsonElement **element, const char *data)
 		}
 	}
 
-	if (isParseError()) {
-		return data;
+	if (element && (*element) && (*element)->isParseError()) {
+		setParseError();
+		return p;
 	}
 
 	return p;
@@ -231,10 +236,10 @@ const char *JsonArray::parse(const char *data)
 	}
 	while (true) {
 		JsonElement *element = NULL;
-		const char *_p = skipSpace(p);
-		p = create(&element, _p);
+		p = skipSpace(p);
+		p = create(&element, p);
 		if (isParseError()) {
-			return _p;
+			return p;
 		}
 		addElement(element);
 		p = skipSpace(p);
@@ -244,7 +249,7 @@ const char *JsonArray::parse(const char *data)
 		}
 		if (*p != ',') {
 			setParseError();
-			return _p;
+			return p;
 		}
 		p++;
 	}
@@ -293,7 +298,7 @@ const char *JsonObject::parse(const char *data)
 		p++;
 		p = create(&element, p);
 		if (isParseError()) {
-			return _p;
+			return p;
 		}
 		addElement(name.c_str(), element);
 		p = skipSpace(p);
@@ -302,7 +307,7 @@ const char *JsonObject::parse(const char *data)
 		}
 		if (*p != ',') {
 			setParseError();
-			return _p;
+			return p;
 		}
 		p++;
 	}
