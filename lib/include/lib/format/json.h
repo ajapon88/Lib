@@ -27,7 +27,7 @@ public:
 		ELEMENT_TYPE_ARRAY,
 		ELEMENT_TYPE_OBJECT,
 	};
-	JsonElement(ELEMENT_TYPE type): type_(type), parse_error_(false){}
+	JsonElement(ELEMENT_TYPE type): type_(type), parse_error_(false), m_parent(NULL) {}
 	virtual ~JsonElement(){}
 
 	virtual void dump(std::string *out) = 0;
@@ -58,7 +58,11 @@ public:
 	JsonArray *getArray();
 	JsonObject *getObject();
 
+	void setParent(JsonElement *parent) { m_parent = parent; }
+	JsonElement *getParent() { return m_parent; }
+
 private:
+	JsonElement *m_parent;
 	ELEMENT_TYPE type_;
 	bool parse_error_;
 };
