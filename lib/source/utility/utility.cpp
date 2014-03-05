@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "lib/utility/utility.h"
 
+namespace {
+static const char BOM[] = { 0xEF, 0xBB, 0xBF};
+}
+
 namespace lib {
 namespace utility {
 	
@@ -152,6 +156,21 @@ int a2iHex(const char *str)
 	return res;
 }
 
+bool isBOM(const char *str)
+{
+	return memcmp(str, BOM, sizeof(BOM)) == 0;
+}
+
+const char *skipBOM(const char *str)
+{
+	if (memcmp(str, BOM, sizeof(BOM)) == 0)  return (str + sizeof(BOM));
+	return str;
+}
+char *skipBOM(char *str)
+{
+	if (memcmp(str, BOM, sizeof(BOM)) == 0)  return (str + sizeof(BOM));
+	return str;
+}
 
 } // namespace utility
 } // namespace lib

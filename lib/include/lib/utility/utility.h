@@ -16,6 +16,10 @@ extern int a2iBin(const char *str);
 extern int a2iOct(const char *str);
 extern int a2iHex(const char *str);
 
+extern bool isBOM(const char *str);
+extern const char *skipBOM(const char *str);
+extern char *skipBOM(char *str);
+
 template <class T> T clamp(const T &val, const T &min_val, const T &max_val)
 {
 	if (val < min_val) return min_val;
