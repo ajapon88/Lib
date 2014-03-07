@@ -106,15 +106,15 @@ const char *JsonElement::create(JsonElement **element, const char *data)
 	const char *p = skipSpace(data);
 	*element = NULL;
 	if (*p == '{') {
-		JsonObject *json_object = NEW() JsonObject();
+		JsonObject *json_object = NEW("JsonElement::JsonObject") JsonObject();
 		p = json_object->parse(p);
 		*element = json_object;
 	} else if (*p == '[') {
-		JsonArray *json_array= NEW() JsonArray();
+		JsonArray *json_array= NEW("JsonElement::JsonArray") JsonArray();
 		p = json_array->parse(p);
 		*element = json_array;
 	} else if (*p == '"') {
-		JsonString *json_string = NEW() JsonString();
+		JsonString *json_string = NEW("JsonElement::JsonString") JsonString();
 		std::string dst;
 		p = copyString(&dst, p);
 		if (isParseError()) {
@@ -126,20 +126,20 @@ const char *JsonElement::create(JsonElement **element, const char *data)
 		std::string dst;
 		p = copyValue(&dst, p);
 		if (dst.compare("null") == 0) {
-			JsonNull *json_null = NEW() JsonNull();
+			JsonNull *json_null = NEW("JsonElement::JsonNull") JsonNull();
 			*element = json_null;
 		} else if (dst.compare("true") == 0) {
-			JsonBool *json_bool = NEW() JsonBool(true);
+			JsonBool *json_bool = NEW("JsonElement::JsonBool") JsonBool(true);
 			*element = json_bool;
 		} else if (dst.compare("false") == 0) {
-			JsonBool *json_bool = NEW() JsonBool(false);
+			JsonBool *json_bool = NEW("JsonElement::JsonBool") JsonBool(false);
 			*element = json_bool;
 		} else if (utility::isInt(dst.c_str())){
-			JsonInt *json_int = NEW() JsonInt();
+			JsonInt *json_int = NEW("JsonElement::JsonInt") JsonInt();
 			json_int->setValue(utility::a2i(dst.c_str()));
 			*element = json_int;
 		} else if (utility::isFloat(dst.c_str())){
-			JsonDouble *json_double = NEW() JsonDouble();
+			JsonDouble *json_double = NEW("JsonElement::JsonDouble") JsonDouble();
 			json_double->setValue(utility::a2f(dst.c_str()));
 			*element = json_double;
 		} else {
@@ -340,11 +340,11 @@ void JsonReader::parse(const char *data)
 	}
 	const char *p = skipSpace(data);
 	if (*p == '{') {
-		JsonObject *json_object = NEW() JsonObject();
+		JsonObject *json_object = NEW("JsonReader::JsonObject") JsonObject();
 		last_parse_pos_ = json_object->parse(p);
 		root_element_ = json_object;
 	} else if (*p == '[') {
-		JsonArray*json_array = NEW() JsonArray();
+		JsonArray *json_array = NEW("JsonReader::JsonArray") JsonArray();
 		last_parse_pos_ = json_array->parse(p);
 		root_element_ = json_array;
 	} else {

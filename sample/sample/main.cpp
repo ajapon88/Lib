@@ -1,22 +1,56 @@
 #include <stdio.h>
+#include <lib/memory/memory.h>
 #include <lib/utility/utility.h>
 #include <lib/format/json.h>
 #include <lib/file/file.h>
 
+void testMemory();
 void testUtility();
 void testJson();
 
 int main()
 {
+	testMemory();
 	testUtility();
 	testJson();
+	
+	lib::memory::Heap *heap = lib::memory::HeapFactory::getDefaultHeap();
+	printf("\n-----MemoryLeakCheck-----\n");
+	heap->PrintInfo();
+	printf("-------------------------\n");
 	getchar();
 	return 0;
 }
 
+void testMemory()
+{
+	printf("-----MomoryTest-----\n");
+	lib::memory::Heap *heap = lib::memory::HeapFactory::getDefaultHeap();
+	heap->PrintInfo();
+	char *test = NEW("TestNew1") char;
+	printf("-----HeapInfo New TestNew1-----\n");
+	heap->PrintInfo();
+	char *test32 = NEW("TestNew32") char[32];
+	printf("-----HeapInfo New TestNew32-----\n");
+	heap->PrintInfo();
+	char *test256 = NEW("TestNew256") char[256];
+	printf("-----HeapInfo New TestNew256-----\n");
+	heap->PrintInfo();
+	SAFE_DELETE(test);
+	printf("-----HeapInfo Delete TestNew-----\n");
+	heap->PrintInfo();
+	SAFE_DELETE(test256);
+	printf("-----HeapInfo Delete TestNew256-----\n");
+	heap->PrintInfo();
+	SAFE_DELETE(test32);
+	printf("-----HeapInfo Delete TestNew32-----\n");
+	heap->PrintInfo();
+	printf("--------------------\n\n");
+}
 
 void testUtility()
 {
+	printf("-----UtilityTest-----\n");
 	const char *str[] = {
 		"1234567890",
 		"-1234567.0",
@@ -48,10 +82,12 @@ void testUtility()
 		}
 		printf("\n");
 	}
+	printf("\n");
 }
 
 void testJson()
 {
+	printf("-----JsonTest-----\n");
 	// Json
 	lib::file::FileList filelist;
 	lib::file::getFileList(&filelist, "../", "json", true);
@@ -69,4 +105,5 @@ void testJson()
 			printf("ÉpÅ[ÉXê¨å˜(%s): %s\n", file.getFileName(), json_reader.dump(&out));
 		}
 	}
+	printf("\n");
 }

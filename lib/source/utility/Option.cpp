@@ -57,7 +57,7 @@ void Option::SetOption(int index, const char* name, OPTION_ARG is_arg, bool need
 
 	// オプションネームを|区切りで分けて格納する
 	int len = strlen(name);
-	char *buf = NEW_ARRAY() char[len+1];
+	char *buf = NEW_ARRAY("Option::Buffer") char[len+1];
 	strncpy(buf, name, len+1);
 	char *p = buf;
 	char *t;

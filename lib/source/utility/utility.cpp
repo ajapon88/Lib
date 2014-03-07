@@ -2,7 +2,7 @@
 #include "lib/utility/utility.h"
 
 namespace {
-static const char BOM[] = { 0xEF, 0xBB, 0xBF};
+static const unsigned char BOM[] = {0xEF, 0xBB, 0xBF};
 }
 
 namespace lib {

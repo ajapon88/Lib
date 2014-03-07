@@ -1,8 +1,8 @@
 #ifndef __LIB_DEFINE_H__
 #define __LIB_DEFINE_H__
 
-#define NEW()	new
-#define NEW_ARRAY() new
+#define NEW(tag, ...)	new(tag, ##__VA_ARGS__)
+#define NEW_ARRAY(tag, ...) new(tag, ##__VA_ARGS__)
 #define SAFE_DELETE(ptr) do{ if(ptr){ delete ptr; ptr=NULL; } }while(false)
 #define SAFE_DELETE_ARRAY(ptr) do{ if(ptr){ delete[] ptr; ptr=NULL; } }while(false)
 #define ARRAY_SIZE(arr) (sizeof(arr)/sizeof((arr)[0]))

@@ -133,7 +133,7 @@ void FileData::load(const char *filename)
 		fseek(fp, 0, SEEK_END);
 		m_size = ftell(fp);
 		fseek(fp, 0, SEEK_SET);
-		m_data = NEW_ARRAY() char[m_size+1];
+		m_data = NEW_ARRAY("FileData::Data") char[m_size+1];
 		memset(m_data, 0, sizeof(char)*(m_size+1));
 		fread(m_data, sizeof(char), m_size, fp);
 		fclose(fp);

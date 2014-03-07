@@ -13,6 +13,8 @@
   <ItemGroup>
     <ClCompile Include="..\source\file\file.cpp" />
     <ClCompile Include="..\source\format\json.cpp" />
+    <ClCompile Include="..\source\memory\heap.cpp" />
+    <ClCompile Include="..\source\memory\memory.cpp" />
     <ClCompile Include="..\source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
@@ -23,6 +25,8 @@
     <ClInclude Include="..\include\lib\define.h" />
     <ClInclude Include="..\include\lib\file\file.h" />
     <ClInclude Include="..\include\lib\format\json.h" />
+    <ClInclude Include="..\include\lib\memory\heap.h" />
+    <ClInclude Include="..\include\lib\memory\memory.h" />
     <ClInclude Include="..\include\lib\utility\Color.h" />
     <ClInclude Include="..\include\lib\utility\Option.h" />
     <ClInclude Include="..\include\lib\utility\utility.h" />

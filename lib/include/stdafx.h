@@ -12,3 +12,4 @@
 #include <windows.h>
 
 #include <lib/define.h>
+#include <lib/memory/memory.h>

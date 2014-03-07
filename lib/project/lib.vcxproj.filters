@@ -31,6 +31,12 @@
     <Filter Include="ヘッダー ファイル\format">
       <UniqueIdentifier>{71987ccb-9ad6-499b-87e2-7c0ad147f785}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\memory">
+      <UniqueIdentifier>{f728e43e-33dc-4e22-8c9d-1e2c770c6ad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\memory">
+      <UniqueIdentifier>{f6f4aae2-b127-42f7-bb07-25df9c290b5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\stdafx.cpp">
@@ -47,6 +53,12 @@
     </ClCompile>
     <ClCompile Include="..\source\file\file.cpp">
       <Filter>ソース ファイル\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\memory\memory.cpp">
+      <Filter>ソース ファイル\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\memory\heap.cpp">
+      <Filter>ソース ファイル\memory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="..\include\lib\utility\Color.h">
       <Filter>ヘッダー ファイル\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\lib\memory\memory.h">
+      <Filter>ヘッダー ファイル\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\lib\memory\heap.h">
+      <Filter>ヘッダー ファイル\memory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
