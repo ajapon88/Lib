@@ -71,16 +71,42 @@ void Heap::printInfo() const
 	AllocateHeader *header = m_pHeadAllocate;
 	printf("HeapInfo:%s\n", m_name);
 	while(header) {
-		printf("  -%s: tag=%s, size=%d\n", m_name, header->tag, header->size);
+		if (header->tag) {
+			printf("  - tag=\"%s\", size=%d\n", header->tag, header->size);
+		} else {
+			printf("  - no_tag, size=%d\n", header->size);
+		}
 		header = header->next;
 	}
 }
 
-Heap HeapFactory::m_DefaultHeap("DefaultHeap");
+Heap HeapFactory::s_defaultHeap("DefaultHeap");
+std::vector<Heap*> HeapFactory::s_heapList;
+
+void HeapFactory::createHeap(unsigned int index, const char *name)
+{
+	if (index >= s_heapList.size()) {
+		s_heapList.resize(index+1, NULL);
+	}
+	ASSERT(!s_heapList[index]);
+	s_heapList[index] = NEW("HeapFactory::createHeap") Heap(name);
+}
+
+Heap *HeapFactory::getHeap(int index)
+{
+	if (index == HEAP_DEFAULT) {
+		return &s_defaultHeap;
+	}
+	return s_heapList[index];
+}
 
 void HeapFactory::printInfo()
 {
-	m_DefaultHeap.printInfo();
+	s_defaultHeap.printInfo();
+	int size = s_heapList.size();
+	for (int i = 0; i < size; i++) {
+		if (s_heapList[i])  s_heapList[i]->printInfo();
+	}
 }
 
 }

@@ -27,23 +27,51 @@ void testMemory()
 {
 	printf("-----MomoryTest-----\n");
 	lib::memory::HeapFactory::printInfo();
-	char *test = NEW("TestNew1") char;
-	printf("-----HeapInfo New TestNew1-----\n");
-	lib::memory::HeapFactory::printInfo();
-	char *test32 = NEW("TestNew32") char[32];
-	printf("-----HeapInfo New TestNew32-----\n");
-	lib::memory::HeapFactory::printInfo();
-	char *test256 = NEW("TestNew256") char[256];
-	printf("-----HeapInfo New TestNew256-----\n");
-	lib::memory::HeapFactory::printInfo();
-	SAFE_DELETE(test);
-	printf("-----HeapInfo Delete TestNew-----\n");
-	lib::memory::HeapFactory::printInfo();
-	SAFE_DELETE(test256);
-	printf("-----HeapInfo Delete TestNew256-----\n");
-	lib::memory::HeapFactory::printInfo();
-	SAFE_DELETE(test32);
-	printf("-----HeapInfo Delete TestNew32-----\n");
+	{
+		char *test = NEW("TestNew1") char;
+		printf("-----HeapInfo New TestNew1-----\n");
+		lib::memory::HeapFactory::printInfo();
+		char *test32 = NEW("TestNew32") char[32];
+		printf("-----HeapInfo New TestNew32-----\n");
+		lib::memory::HeapFactory::printInfo();
+		char *test256 = NEW("TestNew256") char[256];
+		printf("-----HeapInfo New TestNew256-----\n");
+		lib::memory::HeapFactory::printInfo();
+		SAFE_DELETE(test);
+		printf("-----HeapInfo Delete TestNew-----\n");
+		lib::memory::HeapFactory::printInfo();
+		SAFE_DELETE(test256);
+		printf("-----HeapInfo Delete TestNew256-----\n");
+		lib::memory::HeapFactory::printInfo();
+		SAFE_DELETE(test32);
+		printf("-----HeapInfo Delete TestNew32-----\n");
+		lib::memory::HeapFactory::printInfo();
+	}
+	{
+		printf("-----HeapTest-----\n");
+		enum {
+			HEAP_TEST1 = lib::memory::HeapFactory::HEAP_USER,
+			HEAP_TEST2,
+			HEAP_TEST3,
+			HEAP_TEST4,
+		};
+		lib::memory::HeapFactory::createHeap(HEAP_TEST1, "TestHeap1");
+		lib::memory::HeapFactory::createHeap(HEAP_TEST2, "TestHeap2");
+		lib::memory::HeapFactory::createHeap(HEAP_TEST3, "TestHeap3");
+		lib::memory::HeapFactory::createHeap(HEAP_TEST4, "TestHeap4");
+		char *test = NEW("TestNew") char;
+		char *test1 = NEW("TestNew1", HEAP_TEST1) char;
+		char *test2 = NEW("TestNew2", HEAP_TEST2) char;
+		char *test3 = NEW("TestNew3", HEAP_TEST3) char;
+		char *test4 = NEW("TestNew4", HEAP_TEST4) char;
+		lib::memory::HeapFactory::printInfo();
+		SAFE_DELETE(test);
+		SAFE_DELETE(test1);
+		SAFE_DELETE(test2);
+		SAFE_DELETE(test3);
+		SAFE_DELETE(test4);
+	}
+	printf("--------------------\n");
 	lib::memory::HeapFactory::printInfo();
 	printf("--------------------\n\n");
 }

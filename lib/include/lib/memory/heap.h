@@ -2,10 +2,14 @@
 #define __LIB_MEMORY_HEAP_H__
 //#include "stdafx.h"
 #include <stdint.h>
+#include <vector>
 
 namespace lib {
 namespace memory {
 class Heap {
+	enum {
+		NAMELENGTH = 32,
+	};
 	struct AllocateHeader {
 		uint32_t signature;
 		size_t size;
@@ -14,12 +18,10 @@ class Heap {
 		AllocateHeader *prev;
 		AllocateHeader *next;
 	};
-public:
-	enum {
-		NAMELENGTH = 32,
-	};
+
 private:
 	Heap():m_pHeadAllocate(NULL){}
+
 public:
 	Heap(const char *name);
 	~Heap();
@@ -38,18 +40,25 @@ private:
 
 class HeapFactory {
 public:
+	enum HeapIndex {
+		HEAP_DEFAULT	= -1,
+		HEAP_USER		= 0,
+	};
 
+public:
 	static Heap *getDefaultHeap() {
-		return &m_DefaultHeap;
+		return &s_defaultHeap;
 	}
-	
+	static void createHeap(unsigned int index, const char *name);
+	static Heap *getHeap(int index);
 	static void printInfo();
 
 private:
-	static Heap m_DefaultHeap;
+	static Heap s_defaultHeap;
+	static std::vector<Heap*> s_heapList;
 };
 
-}
-}
+} // namespace memory
+} // namespace lib
 
 #endif	// __LIB_MEMORY_HEAP_H__
