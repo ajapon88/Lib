@@ -27,7 +27,7 @@ public:
 	void *allocate(size_t size, const char *tag = NULL);
 	static void deallocate(void *p);
 	
-	void PrintInfo() const;
+	void printInfo() const;
 
 private:
 	void deallocate(AllocateHeader *allocate_header);
@@ -42,6 +42,8 @@ public:
 	static Heap *getDefaultHeap() {
 		return &m_DefaultHeap;
 	}
+	
+	static void printInfo();
 
 private:
 	static Heap m_DefaultHeap;

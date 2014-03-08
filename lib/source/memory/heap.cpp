@@ -66,7 +66,7 @@ void Heap::deallocate(AllocateHeader *allocate_header)
 	free(allocate_header);
 }
 
-void Heap::PrintInfo() const
+void Heap::printInfo() const
 {
 	AllocateHeader *header = m_pHeadAllocate;
 	printf("HeapInfo:%s\n", m_name);
@@ -77,6 +77,11 @@ void Heap::PrintInfo() const
 }
 
 Heap HeapFactory::m_DefaultHeap("DefaultHeap");
+
+void HeapFactory::printInfo()
+{
+	m_DefaultHeap.printInfo();
+}
 
 }
 }

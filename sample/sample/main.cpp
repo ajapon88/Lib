@@ -16,9 +16,8 @@ int main()
 	testUtility();
 	testJson();
 	
-	lib::memory::Heap *heap = lib::memory::HeapFactory::getDefaultHeap();
 	printf("\n-----MemoryLeakCheck-----\n");
-	heap->PrintInfo();
+	lib::memory::HeapFactory::printInfo();
 	printf("-------------------------\n");
 	getchar();
 	return 0;
@@ -27,26 +26,25 @@ int main()
 void testMemory()
 {
 	printf("-----MomoryTest-----\n");
-	lib::memory::Heap *heap = lib::memory::HeapFactory::getDefaultHeap();
-	heap->PrintInfo();
+	lib::memory::HeapFactory::printInfo();
 	char *test = NEW("TestNew1") char;
 	printf("-----HeapInfo New TestNew1-----\n");
-	heap->PrintInfo();
+	lib::memory::HeapFactory::printInfo();
 	char *test32 = NEW("TestNew32") char[32];
 	printf("-----HeapInfo New TestNew32-----\n");
-	heap->PrintInfo();
+	lib::memory::HeapFactory::printInfo();
 	char *test256 = NEW("TestNew256") char[256];
 	printf("-----HeapInfo New TestNew256-----\n");
-	heap->PrintInfo();
+	lib::memory::HeapFactory::printInfo();
 	SAFE_DELETE(test);
 	printf("-----HeapInfo Delete TestNew-----\n");
-	heap->PrintInfo();
+	lib::memory::HeapFactory::printInfo();
 	SAFE_DELETE(test256);
 	printf("-----HeapInfo Delete TestNew256-----\n");
-	heap->PrintInfo();
+	lib::memory::HeapFactory::printInfo();
 	SAFE_DELETE(test32);
 	printf("-----HeapInfo Delete TestNew32-----\n");
-	heap->PrintInfo();
+	lib::memory::HeapFactory::printInfo();
 	printf("--------------------\n\n");
 }
 
