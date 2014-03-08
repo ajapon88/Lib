@@ -2,6 +2,7 @@
 #include <lib/memory/memory.h>
 #include <lib/memory/heap.h>
 
+#ifdef __USE_LIB_MEMORY_SYSTEM
 
 void* operator new(size_t size)
 {
@@ -62,3 +63,5 @@ void operator delete[](void* p, const char *tag, lib::memory::Heap *heap)
 {
 	lib::memory::Heap::deallocate(p);
 }
+
+#endif

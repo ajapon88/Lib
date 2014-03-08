@@ -18,6 +18,8 @@ public:
 	enum {
 		NAMELENGTH = 32,
 	};
+private:
+	Heap():m_pHeadAllocate(NULL){}
 public:
 	Heap(const char *name);
 	~Heap();

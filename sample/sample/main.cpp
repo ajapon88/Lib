@@ -10,6 +10,8 @@ void testJson();
 
 int main()
 {
+	printf("-----StartLibTest-----\n\n");
+
 	testMemory();
 	testUtility();
 	testJson();

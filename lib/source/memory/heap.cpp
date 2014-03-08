@@ -11,7 +11,7 @@ namespace memory {
 
 Heap::Heap(const char *name)
 : m_pHeadAllocate(NULL) {
-	memcpy(m_name, name, NAMELENGTH-1);
+	strncpy(m_name, name, NAMELENGTH-1);
 	m_name[NAMELENGTH-1] = '\0';
 }
 
@@ -45,10 +45,10 @@ void *Heap::allocate(size_t size, const char *tag)
 void Heap::deallocate(void *p)
 {
 	AllocateHeader *allocate_header = (AllocateHeader*)((char*)p - sizeof(AllocateHeader));
-	assert(allocate_header->signature == ALLOCATE_SIGNATURE);
+	ASSERT_MES(allocate_header->signature == ALLOCATE_SIGNATURE, "[Heap] Error: Signature is mismatched.\n");
 
 	uint32_t *endmark = (uint32_t*)((char*)p + allocate_header->size);
-	assert(*endmark == ALLOCATE_ENDMARK);
+	ASSERT_MES(*endmark == ALLOCATE_ENDMARK, "[Heap] Error: Endmark is mismatched.\n");
 
 	allocate_header->heap->deallocate(allocate_header);
 }
@@ -69,14 +69,14 @@ void Heap::deallocate(AllocateHeader *allocate_header)
 void Heap::PrintInfo() const
 {
 	AllocateHeader *header = m_pHeadAllocate;
+	printf("HeapInfo:%s\n", m_name);
 	while(header) {
-		printf("-%s: tag=%s, size=%d\n", m_name, header->tag, header->size);
+		printf("  -%s: tag=%s, size=%d\n", m_name, header->tag, header->size);
 		header = header->next;
 	}
 }
 
 Heap HeapFactory::m_DefaultHeap("DefaultHeap");
-
 
 }
 }
