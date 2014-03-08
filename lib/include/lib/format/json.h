@@ -87,9 +87,7 @@ public:
 	JsonString(const char *val): JsonElement(ELEMENT_TYPE_STRING){}
 	virtual ~JsonString(){}
 
-	virtual void dump(std::string *out) {
-		*out += '"' + value_ + '"';
-	}
+	virtual void dump(std::string *out);
 
 	void setValue(const char *val) { value_ = val; }
 	const char *getValue() { return value_.c_str(); }

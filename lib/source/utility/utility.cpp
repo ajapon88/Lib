@@ -172,6 +172,49 @@ char *skipBOM(char *str)
 	return str;
 }
 
+void expansionEscape(std::string *dst, const char *src)
+{
+	*dst = "";
+	while(*src != '\0') {
+		if (*src == '\\') {
+			src++;
+			if (*src == '\0')  break;
+			switch(*src) {
+				case '\\': *dst += '\\'; break;
+				case '\'': *dst += '\''; break;
+				case '\"': *dst += '\"'; break;
+				case 'r': *dst += '\r'; break;
+				case 'n': *dst += '\n'; break;
+				case 't': *dst += '\t'; break;
+				default:
+					*dst += '\\';
+					continue;
+			}
+		} else {
+			*dst +=	*src;
+		}
+		src++;
+	}
+}
+
+void contractionEscape(std::string *dst, const char *src)
+{
+	*dst = "";
+	while(*src != '\0') {
+		switch(*src) {
+			case '\\': *dst += "\\\\"; break;
+			case '\'': *dst += "\\\'"; break;
+			case '\"': *dst += "\\\""; break;
+			case '\r': *dst += "\\r"; break;
+			case '\n': *dst += "\\n"; break;
+			case '\t': *dst += "\\t"; break;
+			default:
+				*dst += *src;
+		}
+		src++;
+	}
+}
+
 } // namespace utility
 } // namespace lib
 

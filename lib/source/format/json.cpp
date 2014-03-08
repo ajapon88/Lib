@@ -46,6 +46,7 @@ const char *JsonElement::copyValue(std::string *dst, const char *data) {
 
 const char *JsonElement::copyString(std::string *dst, const char *data) {
 	*dst = "";
+	std::string buf;
 	if (*data != '"') {
 		// エラー
 		setParseError();
@@ -54,42 +55,19 @@ const char *JsonElement::copyString(std::string *dst, const char *data) {
 	const char *p = data;
 	p++;
 	while (*p != '\0' && *p != '"') {
-		if (*p == '\\') {
-			// エスケープ
-			p++;
-			if (*p == '\0' || *p == '\n') {
-				// エラー
-				setParseError();
-				return data;
-			}
-			switch (*p) {
-			case 't':
-				*dst += '\t';
-				break;
-			case 'r':
-				*dst += '\r';
-				break;
-			case 'n':
-				*dst += '\n';
-				break;
-			case '"':
-				*dst += '"';
-				break;
-			case '\'':
-				*dst += '\'';
-				break;
-			case '\\':
-				*dst += '\\';
-				break;
-			default:
-				// エスケープが見つからなかった
-				*dst += '\\';
-				*dst += *p;
-			}
-		} else {
-			*dst += *p;
+		if (*p == '\n') {
+			// 文字列内に改行を認めない
+			setParseError();
+			return data;
 		}
-		p++;
+		if (*p == '\\' && (*(p+1) == '\\' || *(p+1) == '\"')) {
+			buf += '\\';
+			buf += *(p+1);
+			p+=2;
+		} else {
+			buf += *p;
+			p++;
+		}
 	}
 	if (*p != '"') {
 		// エラー
@@ -97,6 +75,8 @@ const char *JsonElement::copyString(std::string *dst, const char *data) {
 		return data;
 	}
 	p++;
+
+	utility::expansionEscape(dst, buf.c_str());
 
 	return p;
 }
@@ -210,6 +190,15 @@ JsonObject *JsonElement::getObject()
 		return obj;
 	}
 	return NULL;
+}
+
+void JsonString::dump(std::string *out)
+{
+	std::string t;
+	utility::contractionEscape(&t, value_.c_str());
+	*out += '"';
+	*out += t;
+	*out += '"';
 }
 
 void JsonArray::dump(std::string *out)

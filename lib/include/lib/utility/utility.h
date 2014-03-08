@@ -20,6 +20,9 @@ extern bool isBOM(const char *str);
 extern const char *skipBOM(const char *str);
 extern char *skipBOM(char *str);
 
+extern void expansionEscape(std::string *dst, const char *src);
+extern void contractionEscape(std::string *dst, const char *src);
+
 template <class T> T clamp(const T &val, const T &min_val, const T &max_val)
 {
 	if (val < min_val) return min_val;
