@@ -27,6 +27,15 @@ template <class T> T clamp(const T &val, const T &min_val, const T &max_val)
 	return val;
 }
 
+template <class T> T forseCast(void *p) {
+	return static_cast<T>(p);
+}
+template <class T> T dynamicCast(void *p) {
+	T cast = dynamic_cast<T>(p);
+	ASSERT(cast);
+	return cast;
+}
+
 } // namespace utility
 } // namespace lib
 

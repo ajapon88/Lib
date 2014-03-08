@@ -217,25 +217,16 @@ public:
 	virtual void dump(std::string *out);
 	const char *parse(const char *data);
 	
-	void addElement(const char *name, JsonElement *element) {
-		element_list_.push_back(ElementData(name, element));
+	int getSize() { return element_list_.size(); }
+	const char *getKey(int index);
+	void addElement(const char *name, JsonElement *element);
+	void removeElement(const char *name);
+	JsonElement *getElement(int index);
+	JsonElement *getElement(const char *name);
+	
+	JsonElement *operator[](int index) {
+		return getElement(index);
 	}
-	void removeElement(const char *name) {
-		for (ElementList::iterator it = element_list_.begin(); it != element_list_.end(); ++it) {
-			if (it->first == name) {
-				element_list_.erase(it);
-			}
-		}
-	}
-	JsonElement *getElement(const char *name) {
-		for (ElementList::iterator it = element_list_.begin(); it != element_list_.end(); ++it) {
-			if (it->first == name) {
-				return it->second;
-			}
-		}
-		return NULL;
-	}
-
 	JsonElement *operator[](const char *name) {
 		return getElement(name);
 	}
@@ -244,15 +235,14 @@ protected:
 	ElementList element_list_;
 };
 
-// READER
-class JsonReader {
+// DOCUMENT
+class JsonDocument {
 public:
-	JsonReader(): root_element_(NULL), parse_error_(false), last_parse_pos_(NULL), error_line_no_(-1) {}
-	JsonReader(const char *data): root_element_(NULL), parse_error_(false), last_parse_pos_(NULL), error_line_no_(-1) { parse(data); }
-	~JsonReader() {
+	JsonDocument(): root_element_(NULL), parse_error_(false), last_parse_pos_(NULL), error_line_no_(-1) {}
+	JsonDocument(const char *data): root_element_(NULL), parse_error_(false), last_parse_pos_(NULL), error_line_no_(-1) { parse(data); }
+	~JsonDocument() {
 		SAFE_DELETE(root_element_);
 	}
-
 
 	JsonElement *getRootElement() { return root_element_; }
 	bool isParseError() { return parse_error_; }
@@ -270,4 +260,4 @@ private:
 
 } // namespace format
 } // namespace lib
-#endif	// __LIB_JSON_PARSER_H__
+#endif	// __LIB_FORMAT_JSON_H__

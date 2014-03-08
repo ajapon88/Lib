@@ -318,7 +318,41 @@ const char *JsonObject::parse(const char *data)
 	return p;
 }
 
-const char *JsonReader::dump(std::string *out)
+const char *JsonObject::getKey(int index)
+{
+	if (0 <= index && index < static_cast<int>(element_list_.size())) {
+		return element_list_[index].first.c_str();
+	}
+	return NULL;
+}
+
+void JsonObject::addElement(const char *name, JsonElement *element)
+{
+	removeElement(name);
+	element_list_.push_back(ElementData(name, element));
+}
+
+void JsonObject::removeElement(const char *name)
+{
+	for (ElementList::iterator it = element_list_.begin(); it != element_list_.end(); ++it) {
+		if (it->first == name) {
+			SAFE_DELETE(it->second);
+			element_list_.erase(it);
+		}
+	}
+}
+
+JsonElement *JsonObject::getElement(const char *name)
+{
+	for (ElementList::iterator it = element_list_.begin(); it != element_list_.end(); ++it) {
+		if (it->first == name) {
+			return it->second;
+		}
+	}
+	return NULL;
+}
+
+const char *JsonDocument::dump(std::string *out)
 {
 	*out = "";
 	if (root_element_) {
@@ -328,7 +362,7 @@ const char *JsonReader::dump(std::string *out)
 }
 
 
-void JsonReader::parse(const char *data)
+void JsonDocument::parse(const char *data)
 {
 	parse_error_ = false;
 	last_parse_pos_ = NULL;

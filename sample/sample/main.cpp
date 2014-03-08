@@ -96,13 +96,13 @@ void testJson()
 	while(filelist.nextFile()) {
 		lib::file::FileData file(filelist.getFileName());
 
-		lib::format::JsonReader json_reader;
-		json_reader.parse(file.getData());
-		if (json_reader.isParseError()) {
-			printf("パースエラー(%s): %d行目,'%s'付近\n", file.getFileName(), json_reader.getErrorLineNo(), json_reader.getLastParsePos());
+		lib::format::JsonDocument document;
+		document.parse(file.getData());
+		if (document.isParseError()) {
+			printf("パースエラー(%s): %d行目,'%s'付近\n", file.getFileName(), document.getErrorLineNo(), document.getLastParsePos());
 		} else {
 			std::string out;
-			printf("パース成功(%s): %s\n", file.getFileName(), json_reader.dump(&out));
+			printf("パース成功(%s): %s\n", file.getFileName(), document.dump(&out));
 		}
 	}
 	printf("\n");
