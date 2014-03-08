@@ -4,10 +4,10 @@
 #define __USE_LIB_MEMORY_SYSTEM
 
 #ifdef __USE_LIB_MEMORY_SYSTEM
-#define NEW(tag, ...)	new(tag, ##__VA_ARGS__)
+#define NEW(tag, ...) new(tag, ##__VA_ARGS__)
 #define NEW_ARRAY(tag, ...) new(tag, ##__VA_ARGS__)
 #else
-#define NEW(...)	new
+#define NEW(...) new
 #define NEW_ARRAY(...) new
 #endif
 #define SAFE_DELETE(ptr) do{ if(ptr){ delete (ptr); (ptr)=NULL; } }while(false)

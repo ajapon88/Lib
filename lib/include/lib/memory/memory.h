@@ -1,6 +1,7 @@
 #ifndef __LIB_MEMORY_H__
 #define __LIB_MEMORY_H__
 
+#include <lib/define.h>
 #include <lib/memory/heap.h>
 
 #ifdef __USE_LIB_MEMORY_SYSTEM
