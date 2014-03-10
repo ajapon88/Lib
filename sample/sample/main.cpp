@@ -11,7 +11,6 @@ void testJson();
 int main()
 {
 	printf("-----StartLibTest-----\n\n");
-
 	testMemory();
 	testUtility();
 	testJson();
@@ -70,6 +69,10 @@ void testMemory()
 		SAFE_DELETE(test2);
 		SAFE_DELETE(test3);
 		SAFE_DELETE(test4);
+		lib::memory::HeapFactory::removeHeap(HEAP_TEST1);
+		lib::memory::HeapFactory::removeHeap(HEAP_TEST2);
+		lib::memory::HeapFactory::removeHeap(HEAP_TEST3);
+		lib::memory::HeapFactory::removeHeap(HEAP_TEST4);
 	}
 	printf("--------------------\n");
 	lib::memory::HeapFactory::printInfo();

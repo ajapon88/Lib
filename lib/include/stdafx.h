@@ -8,7 +8,7 @@
 #include <set>
 #include <map>
 #include <fstream>
-
+#define NOMINMAX
 #include <windows.h>
 
 #include <lib/define.h>

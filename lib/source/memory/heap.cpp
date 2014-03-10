@@ -17,6 +17,14 @@ Heap::Heap(const char *name)
 
 Heap::~Heap()
 {
+//	ASSERT(!m_pHeadAllocate);
+	AllocateHeader *header = m_pHeadAllocate;
+	while(header) {
+		AllocateHeader *next = header->next;
+		char *p = ((char*)header + sizeof(AllocateHeader));
+		SAFE_DELETE(p);
+		header = next;
+	}
 }
 
 void *Heap::allocate(size_t size, const char *tag)
@@ -81,7 +89,7 @@ void Heap::printInfo() const
 }
 
 Heap HeapFactory::s_defaultHeap("DefaultHeap");
-std::vector<Heap*> HeapFactory::s_heapList;
+std::vector<Heap*, SystemAllocator<Heap*> > HeapFactory::s_heapList;
 
 void HeapFactory::createHeap(unsigned int index, const char *name)
 {
@@ -90,6 +98,11 @@ void HeapFactory::createHeap(unsigned int index, const char *name)
 	}
 	ASSERT(!s_heapList[index]);
 	s_heapList[index] = NEW("HeapFactory::createHeap") Heap(name);
+}
+
+void HeapFactory::removeHeap(unsigned int index)
+{
+	SAFE_DELETE(s_heapList[index]);
 }
 
 Heap *HeapFactory::getHeap(int index)
@@ -109,5 +122,5 @@ void HeapFactory::printInfo()
 	}
 }
 
-}
-}
+} // namespace memory
+} // namespace lib

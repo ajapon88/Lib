@@ -25,6 +25,7 @@
     <ClInclude Include="..\include\lib\define.h" />
     <ClInclude Include="..\include\lib\file\file.h" />
     <ClInclude Include="..\include\lib\format\json.h" />
+    <ClInclude Include="..\include\lib\memory\allocator.h" />
     <ClInclude Include="..\include\lib\memory\heap.h" />
     <ClInclude Include="..\include\lib\memory\memory.h" />
     <ClInclude Include="..\include\lib\utility\Color.h" />

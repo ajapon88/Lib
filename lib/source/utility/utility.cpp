@@ -217,4 +217,3 @@ void contractionEscape(std::string *dst, const char *src)
 
 } // namespace utility
 } // namespace lib
-

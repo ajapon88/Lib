@@ -89,5 +89,8 @@
     <ClInclude Include="..\include\lib\memory\heap.h">
       <Filter>ヘッダー ファイル\memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\lib\memory\allocator.h">
+      <Filter>ヘッダー ファイル\memory</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
