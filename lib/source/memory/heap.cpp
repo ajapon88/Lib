@@ -88,39 +88,5 @@ void Heap::printInfo() const
 	}
 }
 
-Heap HeapFactory::s_defaultHeap("DefaultHeap");
-std::vector<Heap*, SystemAllocator<Heap*> > HeapFactory::s_heapList;
-
-void HeapFactory::createHeap(unsigned int index, const char *name)
-{
-	if (index >= s_heapList.size()) {
-		s_heapList.resize(index+1, NULL);
-	}
-	ASSERT(!s_heapList[index]);
-	s_heapList[index] = NEW("HeapFactory::createHeap") Heap(name);
-}
-
-void HeapFactory::removeHeap(unsigned int index)
-{
-	SAFE_DELETE(s_heapList[index]);
-}
-
-Heap *HeapFactory::getHeap(int index)
-{
-	if (index == HEAP_DEFAULT) {
-		return &s_defaultHeap;
-	}
-	return s_heapList[index];
-}
-
-void HeapFactory::printInfo()
-{
-	s_defaultHeap.printInfo();
-	int size = s_heapList.size();
-	for (int i = 0; i < size; i++) {
-		if (s_heapList[i])  s_heapList[i]->printInfo();
-	}
-}
-
 } // namespace memory
 } // namespace lib

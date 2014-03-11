@@ -3,7 +3,7 @@
 
 #include <lib/define.h>
 
-#define CREATE_ALLOCATOR(AllocatorName, Tag) \
+#define CREATE_HEAP_ALLOCATOR(AllocatorName, Tag, ...) \
 template <class T> class AllocatorName { \
 public: \
 	typedef size_t size_type; \
@@ -21,7 +21,7 @@ public: \
 	template <class U> AllocatorName(const AllocatorName<U>&) throw() {} \
 	~AllocatorName() throw() {} \
 \
-	pointer allocate(size_type num) { return (pointer)NEW(Tag) T[num]; }   \
+	pointer allocate(size_type num) { return (pointer)NEW(Tag, ##__VA_ARGS__) T[num]; }   \
 	void construct(pointer p, const_reference value) { new(p) T(value); } \
 	void deallocate(pointer p, size_type num) { ::operator delete(p); } \
 	void destroy(pointer p) { p->~T(); } \

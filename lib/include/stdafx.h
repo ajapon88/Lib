@@ -1,3 +1,4 @@
+#define NOMINMAX
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
@@ -8,7 +9,6 @@
 #include <set>
 #include <map>
 #include <fstream>
-#define NOMINMAX
 #include <windows.h>
 
 #include <lib/define.h>

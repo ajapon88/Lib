@@ -60,6 +60,9 @@
     <ClCompile Include="..\source\memory\heap.cpp">
       <Filter>ソース ファイル\memory</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\memory\memory_manager.cpp">
+      <Filter>ソース ファイル\memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\stdafx.h">
@@ -90,6 +93,9 @@
       <Filter>ヘッダー ファイル\memory</Filter>
     </ClInclude>
     <ClInclude Include="..\include\lib\memory\allocator.h">
+      <Filter>ヘッダー ファイル\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\lib\memory\memory_manager.h">
       <Filter>ヘッダー ファイル\memory</Filter>
     </ClInclude>
   </ItemGroup>

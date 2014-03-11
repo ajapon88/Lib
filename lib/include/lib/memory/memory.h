@@ -3,6 +3,7 @@
 
 #include <lib/define.h>
 #include <lib/memory/heap.h>
+#include <lib/memory/memory_manager.h>
 
 #ifdef __USE_LIB_MEMORY_SYSTEM
 void* operator new(size_t size);

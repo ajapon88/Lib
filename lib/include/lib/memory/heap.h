@@ -39,29 +39,6 @@ private:
     AllocateHeader *m_pHeadAllocate;
 };
 
-CREATE_ALLOCATOR(SystemAllocator, "SystemAllocator");
-
-class HeapFactory {
-public:
-	enum HeapIndex {
-		HEAP_DEFAULT = -1,
-		HEAP_USER	 = 0,
-	};
-
-public:
-	static Heap *getDefaultHeap() {
-		return &s_defaultHeap;
-	}
-	static void createHeap(unsigned int index, const char *name);
-	static void removeHeap(unsigned int index);
-	static Heap *getHeap(int index);
-	static void printInfo();
-
-private:
-	static Heap s_defaultHeap;
-	static std::vector<Heap*, SystemAllocator<Heap*> > s_heapList;
-};
-
 } // namespace memory
 } // namespace lib
 
