@@ -1,4 +1,3 @@
-#define NOMINMAX
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
@@ -9,7 +8,6 @@
 #include <set>
 #include <map>
 #include <fstream>
-#include <windows.h>
 
 #include <lib/define.h>
 #include <lib/memory/memory.h>

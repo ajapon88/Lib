@@ -23,6 +23,7 @@ public:
 		return &s_defaultHeap;
 	}
 	static void createHeap(unsigned int index, const char *name);
+	static void createHeapPool(unsigned int index, const char *name, size_t pool_size);
 	static void removeHeap(unsigned int index);
 	static Heap *getHeap(int index);
 	static void printInfo();

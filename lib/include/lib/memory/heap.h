@@ -7,7 +7,12 @@
 
 namespace lib {
 namespace memory {
+
+const uint32_t ALLOCATE_SIGNATURE = 0xDEADC0DE;
+const uint32_t ALLOCATE_ENDMARK = 0xDEADC0DF;
+
 class Heap {
+protected:
 	enum {
 		NAMELENGTH = 32,
 	};
@@ -25,15 +30,15 @@ private:
 
 public:
 	Heap(const char *name);
-	~Heap();
+	virtual ~Heap();
 	
-	void *allocate(size_t size, const char *tag = NULL);
+	virtual void *allocate(size_t size, const char *tag = NULL);
 	static void deallocate(void *p);
 	
 	void printInfo() const;
 
-private:
-	void deallocate(AllocateHeader *allocate_header);
+protected:
+	virtual void deallocate(AllocateHeader *allocate_header);
 
 	char m_name[NAMELENGTH];
     AllocateHeader *m_pHeadAllocate;

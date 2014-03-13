@@ -14,6 +14,7 @@
     <ClCompile Include="..\source\file\file.cpp" />
     <ClCompile Include="..\source\format\json.cpp" />
     <ClCompile Include="..\source\memory\heap.cpp" />
+    <ClCompile Include="..\source\memory\heap_pool.cpp" />
     <ClCompile Include="..\source\memory\memory_manager.cpp" />
     <ClCompile Include="..\source\memory\memory.cpp" />
     <ClCompile Include="..\source\stdafx.cpp">
@@ -28,6 +29,7 @@
     <ClInclude Include="..\include\lib\format\json.h" />
     <ClInclude Include="..\include\lib\memory\allocator.h" />
     <ClInclude Include="..\include\lib\memory\heap.h" />
+    <ClInclude Include="..\include\lib\memory\heap_pool.h" />
     <ClInclude Include="..\include\lib\memory\memory_manager.h" />
     <ClInclude Include="..\include\lib\memory\memory.h" />
     <ClInclude Include="..\include\lib\utility\Color.h" />

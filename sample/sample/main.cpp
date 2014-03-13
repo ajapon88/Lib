@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 #include <lib/memory/memory.h>
 #include <lib/utility/utility.h>
 #include <lib/format/json.h>
@@ -47,38 +48,71 @@ void testMemory()
 		SAFE_DELETE(test32);
 		printf("-----HeapInfo Delete TestNew32-----\n");
 		MemoryManager::printInfo();
+		printf("\n");
 	}
 	{
 		printf("-----HeapTest-----\n");
 		enum {
 			HEAP_TEST1 = MemoryManager::HEAP_USER,
 			HEAP_TEST2,
-			HEAP_TEST3,
-			HEAP_TEST4,
 		};
 		MemoryManager::createHeap(HEAP_TEST1, "TestHeap1");
 		MemoryManager::createHeap(HEAP_TEST2, "TestHeap2");
-		MemoryManager::createHeap(HEAP_TEST3, "TestHeap3");
-		MemoryManager::createHeap(HEAP_TEST4, "TestHeap4");
 		char *test = NEW("TestNew") char;
 		char *test1 = NEW("TestNew1", HEAP_TEST1) char;
 		char *test2 = NEW("TestNew2", HEAP_TEST2) char;
-		char *test3 = NEW("TestNew3", HEAP_TEST3) char;
-		char *test4 = NEW("TestNew4", HEAP_TEST4) char;
 		MemoryManager::printInfo();
 		SAFE_DELETE(test);
 		SAFE_DELETE(test1);
 		SAFE_DELETE(test2);
-		SAFE_DELETE(test3);
-		SAFE_DELETE(test4);
 		MemoryManager::removeHeap(HEAP_TEST1);
 		MemoryManager::removeHeap(HEAP_TEST2);
-		MemoryManager::removeHeap(HEAP_TEST3);
-		MemoryManager::removeHeap(HEAP_TEST4);
+		printf("\n");
 	}
-	printf("--------------------\n");
+	{
+		printf("-----HeapPoolTest-----\n");
+		enum {
+			HEAP_POOL_TEST = MemoryManager::HEAP_USER,
+		};
+		MemoryManager::createHeapPool(HEAP_POOL_TEST, "TestHeapPool", 1024);
+		char *test1 = NEW("TestNew1", HEAP_POOL_TEST) char;
+		char *test2 = NEW("TestNew2", HEAP_POOL_TEST) char;
+		MemoryManager::printInfo();
+		SAFE_DELETE(test1);
+		char *test3 = NEW("TestNew3", HEAP_POOL_TEST) char;
+		MemoryManager::printInfo();
+		SAFE_DELETE(test2);
+		SAFE_DELETE(test3);
+		MemoryManager::removeHeap(HEAP_POOL_TEST);
+		printf("\n");
+	}
+	{
+		printf("-----HeapPoolSpeedTest-----\n");
+		enum {
+			HEAP_NORMAL = MemoryManager::HEAP_USER,
+			HEAP_POOL,
+		};
+		MemoryManager::createHeap(HEAP_NORMAL, "HeapNormal");
+		MemoryManager::createHeapPool(HEAP_POOL, "HeapPool", 1024);
+		clock_t t0;
+		t0 = clock();
+		for (int i = 0; i < 1024*1024; i++) {
+			char *buff = NEW("Normal", HEAP_NORMAL) char[256];
+			SAFE_DELETE(buff);
+		}
+		printf("Normal:%f\n", (double)(clock()-t0)/CLOCKS_PER_SEC);
+		t0 = clock();
+		for (int i = 0; i < 1024*1024; i++) {
+			char *buff = NEW("Pool", HEAP_POOL) char[256];
+			SAFE_DELETE(buff);
+		}
+		printf("Pool  :%f\n", (double)(clock()-t0)/CLOCKS_PER_SEC);
+		MemoryManager::removeHeap(HEAP_NORMAL);
+		MemoryManager::removeHeap(HEAP_POOL);
+		printf("\n");
+	}
 	MemoryManager::printInfo();
-	printf("--------------------\n\n");
+	printf("\n");
 }
 
 void testUtility()

@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include <lib/memory/heap.h>
 
-namespace {
-const uint32_t ALLOCATE_SIGNATURE = 0xDEADC0DE;
-const uint32_t ALLOCATE_ENDMARK = 0xDEADC0DF;
-}
-
 namespace lib {
 namespace memory {
 
@@ -52,6 +47,8 @@ void *Heap::allocate(size_t size, const char *tag)
 
 void Heap::deallocate(void *p)
 {
+	if (!p)  return;
+
 	AllocateHeader *allocate_header = (AllocateHeader*)((char*)p - sizeof(AllocateHeader));
 	ASSERT_MES(allocate_header->signature == ALLOCATE_SIGNATURE, "[Heap] Error: Signature is mismatched.\n");
 
@@ -70,19 +67,18 @@ void Heap::deallocate(AllocateHeader *allocate_header)
 	else m_pHeadAllocate = next;
 	if (next) next->prev = prev;
 
-
 	free(allocate_header);
 }
 
 void Heap::printInfo() const
 {
 	AllocateHeader *header = m_pHeadAllocate;
-	printf("HeapInfo:%s\n", m_name);
+	DEBUG_PRINT("HeapInfo:%s\n", m_name);
 	while(header) {
 		if (header->tag) {
-			printf("  - tag=\"%s\", size=%d\n", header->tag, header->size);
+			DEBUG_PRINT("  - tag=\"%s\", size=%d, address=%x\n", header->tag, header->size, header);
 		} else {
-			printf("  - no_tag, size=%d\n", header->size);
+			DEBUG_PRINT("  - no_tag, size=%d, address=%x\n", header->size, header);
 		}
 		header = header->next;
 	}

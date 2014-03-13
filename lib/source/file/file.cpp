@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include <lib/file/file.h>
+#define NOMINMAX
+#include <windows.h>
 
 namespace lib {
 namespace file {
