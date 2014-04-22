@@ -37,6 +37,12 @@
     <Filter Include="ソース ファイル\memory">
       <UniqueIdentifier>{f6f4aae2-b127-42f7-bb07-25df9c290b5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\network">
+      <UniqueIdentifier>{00ba3817-dcf4-4cd0-a772-c705a1975c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\network">
+      <UniqueIdentifier>{1aaf0868-9fa5-4dbb-aa92-433cc1023ff7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\stdafx.cpp">
@@ -65,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="..\source\memory\heap_pool.cpp">
       <Filter>ソース ファイル\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\network\http.cpp">
+      <Filter>ソース ファイル\network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="..\include\lib\memory\heap_pool.h">
       <Filter>ヘッダー ファイル\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\lib\network\http.h">
+      <Filter>ヘッダー ファイル\network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

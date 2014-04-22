@@ -17,6 +17,7 @@
     <ClCompile Include="..\source\memory\heap_pool.cpp" />
     <ClCompile Include="..\source\memory\memory_manager.cpp" />
     <ClCompile Include="..\source\memory\memory.cpp" />
+    <ClCompile Include="..\source\network\http.cpp" />
     <ClCompile Include="..\source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
@@ -32,6 +33,7 @@
     <ClInclude Include="..\include\lib\memory\heap_pool.h" />
     <ClInclude Include="..\include\lib\memory\memory_manager.h" />
     <ClInclude Include="..\include\lib\memory\memory.h" />
+    <ClInclude Include="..\include\lib\network\http.h" />
     <ClInclude Include="..\include\lib\utility\Color.h" />
     <ClInclude Include="..\include\lib\utility\Option.h" />
     <ClInclude Include="..\include\lib\utility\utility.h" />
