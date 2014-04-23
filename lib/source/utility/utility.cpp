@@ -215,5 +215,23 @@ void contractionEscape(std::string *dst, const char *src)
 	}
 }
 
+
+
+std::string trim(const std::string& str, const char* trim_str)
+{
+	std::string res;
+	std::string::size_type pos0, pos1;
+	pos0 = str.find_first_not_of(trim_str);
+	if (pos0 != std::string::npos) {
+		pos1 = str.find_last_not_of(trim_str)+1;
+		res = str.substr(pos0, pos1);
+	} else {
+		res = str;
+	}
+
+	return res;
+}
+
+
 } // namespace utility
 } // namespace lib

@@ -5,7 +5,7 @@
 
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include <string>
+#include <vector>
 
 namespace lib {
 namespace network {
@@ -21,11 +21,15 @@ public:
 		STATE_RECIEVE,
 		STATE_RECIEVE_END,
 		STATE_FINISH,
+		STATE_ERROR,
 	};
 	enum METHOD {
 		METHOD_GET,
 		METHOD_POST,
 	};
+	typedef std::vector<unsigned char> RecvData;
+	typedef std::pair<std::string, std::string> HeaerFieldElement;
+	typedef std::vector<HeaerFieldElement> HeaderFieldList;
 public:
 	static bool initialize();
 	static bool destroy();
@@ -40,9 +44,14 @@ public:
 	void update(float delta);
 	void close();
 	STATE getState() { return m_state; }
-	const std::string& getData() { return m_data; }
+	const char* getHeader() { return m_header.c_str(); }
+	const unsigned char* getData() { return m_data.data(); }
+	unsigned int getSize() { return m_data.size(); }
 
 	void parseURL(std::string* host, std::string* path, u_short* port, const char* address);
+	void parseHeader();
+	int getStatusCode() { return m_statusCode; }
+	const char* getHeaderField(const char* field);
 
 private:
 	STATE m_state;
@@ -54,7 +63,11 @@ private:
 	std::string m_address;
 	std::string m_path;
 	u_short m_port;
-	std::string m_data;
+	RecvData m_data;
+	std::string m_header;
+	HeaderFieldList m_headerFields;
+	bool m_isRecvData;
+	int m_statusCode;
 };
 
 

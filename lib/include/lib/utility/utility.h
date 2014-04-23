@@ -23,6 +23,8 @@ extern char *skipBOM(char *str);
 extern void expansionEscape(std::string *dst, const char *src);
 extern void contractionEscape(std::string *dst, const char *src);
 
+extern std::string trim(const std::string& str, const char* trim_str=" \t\n\r\0\x0B" );
+
 template <class T> T clamp(const T &val, const T &min_val, const T &max_val)
 {
 	if (val < min_val) return min_val;
