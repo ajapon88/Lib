@@ -30,11 +30,12 @@ bool Http::destroy()
 
 Http::Http()
 : m_state(STATE_NONE)
-, m_socket(INVALID_SOCKET)
-, m_port(0)
-, m_noblockingmode(1)
 , m_addInfo(NULL)
+, m_socket(INVALID_SOCKET)
 , m_method(METHOD_GET)
+, m_noblockingmode(1)
+, m_https(false)
+, m_port(0)
 {
 }
 
@@ -56,8 +57,7 @@ void Http::get(const char* address)
 {
 	close();
 	m_noblockingmode = 0;
-	m_address = address;
-	m_port = 80;
+	parseURL(&m_address, &m_path, &m_port, address);
 	m_data = "";
 	m_method = METHOD_GET;
 
@@ -192,6 +192,44 @@ void Http::update(float delta)
 		ASSERT_MES(false, "Http state invalid. state=%d\n", m_state);
 	}
 }
+
+void Http::parseURL(std::string* host, std::string* path, u_short* port, const char* address)
+{
+	*host = "";
+	*path = "";
+	*port = 80;
+
+	// HTTP://削除
+	const char* p = NULL;
+	if (strstr(address, "http://") == address) {
+		address += strlen("http://");
+	} else if (strstr(address, "https://") == address) {
+		address += strlen("https://");
+		m_https = true;
+	}
+	// host取り出し
+	p = strstr(address, "/");
+	if (!p) {
+		*host = address;
+		*path = "/";
+	} else {
+		*host = "";
+		while(p > address) {
+			*host += *address;
+			address++;
+		}
+		*path = address;
+	}
+	// port
+	std::string::size_type pos = host->find(':', 0);
+	if (pos != std::string::npos) {
+		*port = atoi(host->substr(pos+1).c_str());
+		host->erase(pos);
+	}
+
+	DEBUG_PRINT("%s %s %d\n", host->c_str(), path->c_str(), *port);
+}
+
 
 
 } // namespace network

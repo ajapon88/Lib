@@ -42,16 +42,21 @@ public:
 	STATE getState() { return m_state; }
 	const std::string& getData() { return m_data; }
 
+	void parseURL(std::string* host, std::string* path, u_short* port, const char* address);
+
 private:
 	STATE m_state;
-	SOCKET m_socket;
-	u_short m_port;
-	u_long m_noblockingmode;
-	std::string m_address;
-	std::string m_data;
 	struct addrinfo *m_addInfo;
+	SOCKET m_socket;
 	METHOD m_method;
+	u_long m_noblockingmode;
+	bool m_https;
+	std::string m_address;
+	std::string m_path;
+	u_short m_port;
+	std::string m_data;
 };
+
 
 } // namespace network
 } // namespace lib
