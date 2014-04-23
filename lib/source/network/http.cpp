@@ -170,7 +170,7 @@ void Http::update(float delta)
 			char* p = strstr(buf, "\r\n\r\n");
 			if (p) {
 				// ヘッダの終端が含まれていた
-				p += strlen("\r\n");
+				p += strlen("\r\n");	// 改行が最後に入るように
 				*p = '\0';
 				m_header = buf;
 				// リクエストボディ
@@ -214,7 +214,7 @@ void Http::update(float delta)
 				char* p = strstr(buf, "\r\n\r\n");
 				if (p) {
 					// ヘッダの終端が含まれていた
-					p += strlen("\r\n");
+					p += strlen("\r\n");	// 改行が最後に入るように
 					*p = '\0';
 					m_header += buf;
 					// リクエストボディ
@@ -237,7 +237,7 @@ void Http::update(float delta)
 						m_header += p;
 					} else {
 						// 連結した結果ヘッダ終わってた
-						m_header.erase(pos);
+						m_header.erase(pos+strlen("\r\n"));	// 改行が最後に入るように
 						int bodysize = n-(p-buf);
 						if (bodysize > 0) {
 							m_data.resize(bodysize);
