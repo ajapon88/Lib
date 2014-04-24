@@ -25,6 +25,11 @@ extern void contractionEscape(std::string *dst, const char *src);
 
 extern std::string trim(const std::string& str, const char* trim_str=" \t\n\r\0\x0B" );
 
+extern char encodeBase64Char(unsigned int c);
+extern std::string encodeBase64(const char* str);
+extern unsigned char decodeBase64Char(char c);
+extern std::string decodeBase64(const char* str);
+
 template <class T> T clamp(const T &val, const T &min_val, const T &max_val)
 {
 	if (val < min_val) return min_val;

@@ -53,6 +53,8 @@ public:
 	int getStatusCode() { return m_statusCode; }
 	const char* getHeaderField(const char* field);
 
+	void setBasicAuthorization(const char* user, const char* passwd);
+
 private:
 	STATE m_state;
 	struct addrinfo *m_addInfo;
@@ -68,6 +70,7 @@ private:
 	HeaderFieldList m_headerFields;
 	bool m_isRecvData;
 	int m_statusCode;
+	std::string m_basicAuth;
 };
 
 

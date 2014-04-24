@@ -142,6 +142,9 @@ void Http::update(float delta)
 			ASSERT_MES(false, "[HTTP] invalid method. method=%d\n", m_method);
 		}
 		send_request << "Host: " << m_address << "\r\n";
+		if (!m_basicAuth.empty()) {
+			send_request << "Authorization: Basic " << m_basicAuth << "\r\n";
+		}
 		send_request << "\r\n";
 		DEBUG_PRINT("[HTTP] send request = \"%s\"\n", send_request.str().c_str());
 		int n = send(m_socket, send_request.str().c_str(), send_request.str().size(), 0);
@@ -374,6 +377,22 @@ const char* Http::getHeaderField(const char* field)
 	}
 	return NULL;
 }
+
+void Http::setBasicAuthorization(const char* user, const char* passwd)
+{
+	if (!user || !passwd) {
+		m_basicAuth.clear();
+		return;
+	}
+
+	std::string base64;
+	base64 = user;
+	base64 += ':';
+	base64 += passwd;
+	
+	m_basicAuth = utility::encodeBase64(base64.c_str());
+}
+
 
 } // namespace network
 } // namespace lib

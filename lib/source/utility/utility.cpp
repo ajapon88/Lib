@@ -232,6 +232,72 @@ std::string trim(const std::string& str, const char* trim_str)
 	return res;
 }
 
+extern char encodeBase64Char(unsigned int c)
+{
+	if (c < 0x1A)  return 'A'+c;
+	if (c < 0x34)  return 'a'+(c-0x1A);
+	if (c < 0x3E)  return '0'+(c-0x34);
+	if (c == 0x3E)  return '+';
+	if (c == 0x3F)  return '/';
+	ASSERT(false);
+	return '?';
+}
 
+std::string encodeBase64(const char* str)
+{
+	std::string res;
+	int bit = 0;
+	while(*str != '\0') {
+		uint16_t t = (str[0]<<8) + str[1];
+		int b = 10-bit;
+		bit = (16-b)%8;
+		if (b <= 8)  str++;
+		res += encodeBase64Char(0x3F&(t>>b));
+	}
+	int f = res.length()%4;
+	if (f == 1)  res += "===";
+	else if (f == 2)  res += "==";
+	else if (f == 3)  res += "=";
+
+	return res;
+}
+
+extern unsigned char decodeBase64Char(char c)
+{
+	if ('A' <= c && c <= 'Z')  return c-'A';
+	if ('a' <= c && c <= 'z')  return 0x1A + c-'a';
+	if ('0' <= c && c <= '9')  return 0x34 + c-'0';
+	if (c == '+')  return 0x3E;
+	if (c == '/')  return 0x3F;
+	return 0x00;
+}
+
+std::string decodeBase64(const char* str)
+{
+	std::string res;
+
+	int len = strlen(str);
+	ASSERT(len%4 == 0);
+	if (len%4 != 0)  return res;
+
+	while(*str != '\0') {
+		char buf[4];
+		buf[0] = decodeBase64Char(str[0]);
+		buf[1] = decodeBase64Char(str[1]);
+		buf[2] = decodeBase64Char(str[2]);
+		buf[3] = decodeBase64Char(str[3]);
+
+		buf[0] = (buf[0]<<2) + (buf[1]>>4);
+		buf[1] = (buf[1]<<4) + (buf[2]>>2);
+		buf[2] = (buf[2]<<6) + buf[3];
+		buf[3] = '\0';
+
+		res += buf;
+
+		str += 4;
+	}
+
+	return res;
+}
 } // namespace utility
 } // namespace lib
