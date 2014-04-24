@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\debug\debug.cpp" />
     <ClCompile Include="..\source\file\file.cpp" />
     <ClCompile Include="..\source\format\json.cpp" />
     <ClCompile Include="..\source\memory\heap.cpp" />
@@ -25,6 +26,7 @@
     <ClCompile Include="..\source\utility\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\lib\debug\debug.h" />
     <ClInclude Include="..\include\lib\define.h" />
     <ClInclude Include="..\include\lib\file\file.h" />
     <ClInclude Include="..\include\lib\format\json.h" />

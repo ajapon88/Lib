@@ -43,6 +43,12 @@
     <Filter Include="ヘッダー ファイル\network">
       <UniqueIdentifier>{1aaf0868-9fa5-4dbb-aa92-433cc1023ff7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\debug">
+      <UniqueIdentifier>{6400452f-913f-478b-abdc-50ece42384ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\debug">
+      <UniqueIdentifier>{28a6f3b0-b774-46a0-a098-582c7e13d9ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\stdafx.cpp">
@@ -74,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="..\source\network\http.cpp">
       <Filter>ソース ファイル\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\debug\debug.cpp">
+      <Filter>ソース ファイル\debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="..\include\lib\network\http.h">
       <Filter>ヘッダー ファイル\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\lib\debug\debug.h">
+      <Filter>ヘッダー ファイル\debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
