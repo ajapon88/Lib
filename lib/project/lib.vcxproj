@@ -14,6 +14,7 @@
     <ClCompile Include="..\source\debug\debug.cpp" />
     <ClCompile Include="..\source\file\file.cpp" />
     <ClCompile Include="..\source\format\json.cpp" />
+    <ClCompile Include="..\source\format\PNM.cpp" />
     <ClCompile Include="..\source\memory\heap.cpp" />
     <ClCompile Include="..\source\memory\heap_pool.cpp" />
     <ClCompile Include="..\source\memory\memory_manager.cpp" />
@@ -31,6 +32,7 @@
     <ClInclude Include="..\include\lib\define.h" />
     <ClInclude Include="..\include\lib\file\file.h" />
     <ClInclude Include="..\include\lib\format\json.h" />
+    <ClInclude Include="..\include\lib\format\PNM.h" />
     <ClInclude Include="..\include\lib\memory\allocator.h" />
     <ClInclude Include="..\include\lib\memory\heap.h" />
     <ClInclude Include="..\include\lib\memory\heap_pool.h" />

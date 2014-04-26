@@ -93,6 +93,9 @@
     <ClCompile Include="..\source\texture\texture.cpp">
       <Filter>ソース ファイル\texture</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\format\PNM.cpp">
+      <Filter>ソース ファイル\format</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\stdafx.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="..\include\lib\texture\texture.h">
       <Filter>ヘッダー ファイル\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\lib\format\PNM.h">
+      <Filter>ヘッダー ファイル\format</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
