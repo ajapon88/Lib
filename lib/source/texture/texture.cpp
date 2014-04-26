@@ -55,13 +55,15 @@ void Texture::destroy()
 
 void Texture::clear(COLORREF color)
 {
-	HPEN hPen = CreatePen(PS_SOLID, 1, color);
-	HBRUSH hBrush = CreateSolidBrush(color);
-	SelectObject( m_hDC, hPen );
-	SelectObject( m_hDC, hBrush );
-	Rectangle(m_hDC, 0, 0, m_width, m_height);
-	DeleteObject(hPen);
-	DeleteObject(hBrush);
+	if (m_bCreated) {
+		HPEN hPen = CreatePen(PS_SOLID, 1, color);
+		HBRUSH hBrush = CreateSolidBrush(color);
+		SelectObject( m_hDC, hPen );
+		SelectObject( m_hDC, hBrush );
+		Rectangle(m_hDC, 0, 0, m_width, m_height);
+		DeleteObject(hPen);
+		DeleteObject(hBrush);
+	}
 }
 
 } // namespace texture

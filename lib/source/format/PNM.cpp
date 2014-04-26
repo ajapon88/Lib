@@ -90,7 +90,7 @@ bool PNM::createPNM(uint8_t* data, uint32_t size)
 		}
 		case 2:	// 最大輝度
 		{
-			setPpmParam(&m_brightness, 2, param);
+			setPpmParam(&m_bright, 2, param);
 			break;
 		}
 		default:
@@ -108,7 +108,7 @@ bool PNM::createPNM(uint8_t* data, uint32_t size)
 	DEBUG_PRINT("------PNM INFO------\n");
 	DEBUG_PRINT("Format:     %d\n", m_format);
 	DEBUG_PRINT("Pixel:      %d, %d\n", m_width, m_height);
-	DEBUG_PRINT("Blightness: %d\n", m_brightness);
+	DEBUG_PRINT("Blightness: %d\n", m_bright);
 	DEBUG_PRINT("--------------------\n");
 
 	// データ
@@ -140,12 +140,7 @@ void PNM::destroy()
 	m_format = FORMAT_INVALID;
 	m_width = 0;
 	m_height = 0;
-	m_brightness = 0;
-//	m_divX = 0;
-//	m_divY = 0;
-//	m_maxCount = 0;
-//	m_selectCostRate = 0;
-//	m_changeCostRate = 0;
+	m_bright = 0;
 	m_bValid = false;
 	m_comments.clear();
 }
@@ -186,14 +181,22 @@ bool PNM::copyPPMTextureBinary(lib::texture::Texture* tex, uint8_t* data, uint32
 	tex->clear(RGB(0xFF, 0xFF, 0xFF));
 	for(int y=0; y<tex->getHeight(); y++) {
 		for(int x=0; x<tex->getWidth(); x++) {
+			if (size <= 0) {
+				return false;
+			}
 			// TODO: 輝度に合わせてカラー計算
 			uint8_t r = data[0];
 			uint8_t g = data[1];
 			uint8_t b = data[2];
 			SetPixelV(tex->getHandle(), x, y, RGB(r, g, b));
 			data += 3;
+			size -= 3;
 		}
 	}
+	if (size != 0) {
+		return false;
+	}
+
 	return true;
 }
 

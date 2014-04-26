@@ -41,6 +41,10 @@ public:
 	int getCommentCount() { return m_comments.size(); }
 	const std::string& getComment(int idx) { return m_comments[idx]; }
 
+	uint32_t getWidth() { return m_width;}
+	uint32_t getHeight() { return m_height;}
+	uint32_t getBright() { return m_bright;}
+
 private:
 	int getFormatHeaderCount();
 	int32_t searchData(uint8_t* data, uint32_t size, uint8_t offset, uint8_t search);
@@ -54,7 +58,7 @@ private:
 	FORMAT m_format;
 	int m_width;
 	int m_height;
-	int m_brightness;
+	int m_bright;
 
 	// テクスチャ
 	lib::texture::Texture *m_pTexture;
