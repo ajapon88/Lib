@@ -217,6 +217,12 @@ void contractionEscape(std::string *dst, const char *src)
 
 
 
+std::string trim(const char* str, const char* trim_str)
+{
+	std::string tmp(str);
+	return trim(tmp, trim_str);
+}
+
 std::string trim(const std::string& str, const char* trim_str)
 {
 	std::string res;
@@ -232,7 +238,7 @@ std::string trim(const std::string& str, const char* trim_str)
 	return res;
 }
 
-extern char encodeBase64Char(unsigned int c)
+char encodeBase64Char(unsigned int c)
 {
 	if (c < 0x1A)  return 'A'+c;
 	if (c < 0x34)  return 'a'+(c-0x1A);
@@ -262,7 +268,7 @@ std::string encodeBase64(const char* str)
 	return res;
 }
 
-extern unsigned char decodeBase64Char(char c)
+unsigned char decodeBase64Char(char c)
 {
 	if ('A' <= c && c <= 'Z')  return c-'A';
 	if ('a' <= c && c <= 'z')  return 0x1A + c-'a';
@@ -299,5 +305,30 @@ std::string decodeBase64(const char* str)
 
 	return res;
 }
+
+
+std::string wchar2string(wchar_t* str)
+{
+	std::string t;
+	while(*str != '\0')
+	{
+		if (*str&0xFF00) {
+			t += (char)(*str>>8);
+			t += (char)(*str&0xFF);
+		} else {
+			t += (char)(*str&0xFF);
+		}
+		str++;
+	}
+	return t;
+}
+
+std::string char2string(TCHAR* str)
+{
+	std::string t(str);
+	return t;
+}
+
+
 } // namespace utility
 } // namespace lib

@@ -33,14 +33,14 @@ public:
 
 	void load(const char *filename);
 	void release();
-	int getSize();
-	char *getData() { return m_data; }
+	uint32_t getSize() { return m_size; }
+	uint8_t *getData() { return m_data; }
 	const char *getFileName() { return m_filename.c_str(); }
 
 private:
 	std::string m_filename;
-	long m_size;
-	char *m_data;
+	uint32_t m_size;
+	uint8_t *m_data;
 };
 } // namespace file
 } // namespace lib

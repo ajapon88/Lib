@@ -1,6 +1,8 @@
 #ifndef __LIB_DEFINE_H__
 #define __LIB_DEFINE_H__
 
+#include <assert.h>
+
 #define __USE_LIB_MEMORY_SYSTEM
 
 #ifdef __USE_LIB_MEMORY_SYSTEM
