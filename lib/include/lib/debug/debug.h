@@ -1,5 +1,5 @@
-#ifndef __LIB_DEBUG_H__
-#define __LIB_DEBUG_H__
+#ifndef __LIB_DEBUG_DEBUG_H__
+#define __LIB_DEBUG_DEBUG_H__
 #include "stdafx.h"
 
 namespace lib {
@@ -11,4 +11,4 @@ extern void hideConsole();
 } // namespace debug
 } // namespace lib
 
-#endif // __LIB_DEBUG_H__
+#endif // __LIB_DEBUG_DEBUG_H__

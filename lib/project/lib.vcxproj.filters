@@ -49,6 +49,12 @@
     <Filter Include="ソース ファイル\debug">
       <UniqueIdentifier>{28a6f3b0-b774-46a0-a098-582c7e13d9ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\texture">
+      <UniqueIdentifier>{0c58ce54-4933-4744-87f2-6b93da3f15ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\texture">
+      <UniqueIdentifier>{7ce52bd2-e080-4d1c-b8b2-81b6e1d2fbad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\stdafx.cpp">
@@ -83,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="..\source\debug\debug.cpp">
       <Filter>ソース ファイル\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\texture\texture.cpp">
+      <Filter>ソース ファイル\texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\include\lib\debug\debug.h">
       <Filter>ヘッダー ファイル\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\lib\texture\texture.h">
+      <Filter>ヘッダー ファイル\texture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

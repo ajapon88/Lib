@@ -22,6 +22,7 @@
     <ClCompile Include="..\source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\source\texture\texture.cpp" />
     <ClCompile Include="..\source\utility\Option.cpp" />
     <ClCompile Include="..\source\utility\utility.cpp" />
   </ItemGroup>
@@ -36,6 +37,7 @@
     <ClInclude Include="..\include\lib\memory\memory_manager.h" />
     <ClInclude Include="..\include\lib\memory\memory.h" />
     <ClInclude Include="..\include\lib\network\http.h" />
+    <ClInclude Include="..\include\lib\texture\texture.h" />
     <ClInclude Include="..\include\lib\utility\Color.h" />
     <ClInclude Include="..\include\lib\utility\Option.h" />
     <ClInclude Include="..\include\lib\utility\utility.h" />
