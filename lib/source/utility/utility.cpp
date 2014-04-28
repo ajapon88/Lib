@@ -31,7 +31,7 @@ bool isFloat(const char *str)
 	int state = 0;
 	while (*str != '\0') {
 		switch (state) {
-		case 0:	// À”•”
+		case 0:	// å®Ÿæ•°éƒ¨
 			if (*str == '.') {
 				str++;
 				if (!isdigit(*str))  return false;
@@ -47,7 +47,7 @@ bool isFloat(const char *str)
 				return false;
 			}
 			break;
-		case 1:	// ¬”•”
+		case 1:	// å°æ•°éƒ¨
 			if (*str == 'e' || *str == 'E') {
 				str++;
 				if (*str == '+' || *str == '-')  str++;
@@ -58,7 +58,7 @@ bool isFloat(const char *str)
 				return false;
 			}
 			break;
-		case 2:	// w”•”
+		case 2:	// æŒ‡æ•°éƒ¨
 			if (!isdigit(*str))  return false;
 			break;
 		}
